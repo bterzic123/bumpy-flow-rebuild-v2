@@ -1,0 +1,1748 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Search to Gold — Bumpy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Open+Sans:wdth,wght@75..100,300..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: only light;
+  /* ---- Bumpy, extracted from their live screens ---- */
+  --bp-g1:#43CECF; --bp-g2:#4BBFD2; --bp-g3:#51AFD4;
+  --bp-card:#FFFFFF; --bp-field:#F2F4F5; --bp-ink:#1A1A1A; --bp-txt:#3A3A3A; --bp-muted:#7E7E7E;
+  --bp-radio:#8E8E8E; --bp-teal:#05C6D7; --bp-save:#C2E7F1; --bp-link:#4FB0D6; --bp-chipline:#C9CDD0;
+  --bp-gold1:#F5B60C; --bp-gold2:#F8E376; --bp-pill:#FDD710; --bp-plan:#F3F3F3;
+  --bp-night:#161817;
+  --r-ctl:13px; --r-media:20px;
+  /* ---- the report shell, in Bumpy's own palette ---- */
+  --bg:#F2F8FA; --bg2:#FFFFFF; --surf:#FFFFFF;
+  --hair:rgba(20,35,42,.09); --hair2:rgba(20,35,42,.16);
+  --ink:#14232A; --ink2:#43535A; --ink3:#86959B;
+  --accent:#14A3BD; --accent-lift:#0E7F95;
+  --panel:#FFFFFF; --panel-ink:#121A1E; --panel-muted:#5F6B70; --panel-line:#E7ECEE;
+  --accent-ink:#0B6F83;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);
+  font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+@media(max-width:700px){.wrap{padding:0 20px}}
+
+/* ============ top bar ============ */
+.nav{position:sticky;top:0;z-index:70;background:rgba(242,248,250,.86);backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid var(--hair)}
+.nav-in{max-width:1080px;margin:0 auto;padding:0 32px;height:58px;display:flex;align-items:center;gap:18px}
+@media(max-width:700px){.nav-in{padding:0 20px;gap:12px}}
+.nav-brand{display:flex;align-items:center;gap:10px;white-space:nowrap;font-size:13.5px;font-weight:600;letter-spacing:-.01em}
+.nav-brand .mk{height:26px;flex:none;display:block;color:#1DB3CB}
+.nav-brand .mk svg{height:30px;width:auto;display:block;margin-top:-2px}
+.nav-brand .sep{width:1px;height:18px;background:var(--hair2)}
+.nav-brand span{color:var(--ink2);font-weight:500}
+.nav-brand b{color:var(--ink);font-weight:600}
+.nav-links{margin-left:auto;display:flex;gap:2px;align-items:center}
+.nav-links button{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink3);transition:.16s}
+.nav-links button:hover{color:var(--ink)}
+.nav-links button.on{color:var(--ink);background:#fff;box-shadow:0 1px 4px rgba(20,35,42,.08)}
+@media(max-width:640px){.nav-brand span{display:none}}
+
+.view{display:none}
+.view.on{display:block}
+
+/* ============ hero ============ */
+.hero{padding:104px 0 0;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-340px;left:50%;transform:translateX(-50%);
+  width:1100px;height:640px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(67,206,207,.26),transparent 72%)}
+.hero::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(40% 50% at 8% 20%,rgba(81,175,212,.22),transparent 70%),
+   radial-gradient(38% 45% at 92% 18%,rgba(248,214,90,.26),transparent 70%)}
+.hero>*{position:relative;z-index:1}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-lift);margin-bottom:26px}
+.hero h1{font-size:76px;line-height:.98;font-weight:700;letter-spacing:-.045em;margin:0 0 24px}
+@media(max-width:820px){.hero h1{font-size:50px}.hero{padding-top:70px}}
+.hero .lede{font-size:20px;line-height:1.5;font-weight:400;color:var(--ink2);max-width:600px;margin:0 auto;letter-spacing:-.012em}
+@media(max-width:820px){.hero .lede{font-size:17px}}
+.hero .meta{margin-top:30px;font-size:12.5px;color:var(--ink3);letter-spacing:.02em}
+.hero .meta b{color:var(--ink2);font-weight:600}
+
+.stats{display:flex;justify-content:center;gap:0;margin:70px auto 0;max-width:760px;
+  border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.stat{flex:1;padding:26px 14px;text-align:center;border-left:1px solid var(--hair)}
+.stat:first-child{border-left:none}
+.stat b{display:block;font-size:26px;font-weight:700;letter-spacing:-.03em;color:var(--ink)}
+.stat span{display:block;font-size:11.5px;color:var(--ink3);margin-top:5px;line-height:1.35}
+@media(max-width:700px){.stat b{font-size:19px}.stat{padding:18px 8px}}
+
+.fb{max-width:760px;margin:0 auto;padding:30px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:26px;text-align:left}
+@media(max-width:700px){.fb{grid-template-columns:1fr;gap:20px;padding-top:24px}}
+.fb-k{grid-column:1/-1;font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink3);text-align:center;margin-bottom:-6px}
+.fb-i{display:flex;gap:12px;align-items:flex-start}
+.fb-i .tick{width:18px;height:18px;flex:none;margin-top:3px;border-radius:50%;background:rgba(20,163,189,.15);
+  display:grid;place-items:center}
+.fb-i .tick svg{width:10px;height:10px;stroke:var(--accent-lift);stroke-width:3;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.fb-i p{font-size:14px;line-height:1.55;color:var(--ink2);margin:0}
+.fb-i p b{color:var(--ink);font-weight:700}
+
+.sec{padding:96px 0}
+.sec-k{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:18px}
+.sec h2{font-size:38px;line-height:1.14;font-weight:700;letter-spacing:-.035em;margin:0 0 20px;max-width:680px}
+@media(max-width:820px){.sec h2{font-size:29px}.sec{padding:64px 0}}
+.sec p.body{font-size:17px;line-height:1.66;color:var(--ink2);max-width:640px;margin:0 0 18px;letter-spacing:-.008em}
+.sec p.body b{color:var(--ink);font-weight:600}
+.rule{height:1px;background:var(--hair);margin:0}
+
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px;max-width:820px}
+@media(max-width:760px){.notes{grid-template-columns:1fr}}
+.note{background:var(--surf);border:1px solid var(--hair);box-shadow:0 2px 10px rgba(20,35,42,.04);border-radius:16px;padding:24px 26px}
+.note h4{font-size:15px;font-weight:700;letter-spacing:-.015em;margin:0 0 8px}
+.note p{font-size:14px;line-height:1.6;color:var(--ink2);margin:0}
+
+.ideas{display:flex;flex-direction:column;gap:0;margin-top:14px;border-top:1px solid var(--hair)}
+.idea{display:grid;grid-template-columns:52px 1fr 180px;gap:26px;align-items:start;
+  padding:30px 4px;border-bottom:1px solid var(--hair);text-align:left;width:100%;transition:.18s}
+.idea:hover{background:rgba(255,255,255,.7)}
+@media(max-width:780px){.idea{grid-template-columns:38px 1fr;gap:16px}}
+.idea .no{font-size:13px;font-weight:700;color:var(--ink3);padding-top:4px;letter-spacing:.02em}
+.idea h3{font-size:21px;line-height:1.25;font-weight:700;letter-spacing:-.024em;margin:0 0 7px}
+@media(max-width:820px){.idea h3{font-size:18px}}
+.idea p{font-size:14.5px;line-height:1.6;color:var(--ink2);margin:0;max-width:540px}
+.idea .out{text-align:right;padding-top:3px}
+@media(max-width:780px){.idea .out{grid-column:2;text-align:left;padding-top:12px}}
+.idea .out b{display:block;font-size:19px;font-weight:700;letter-spacing:-.025em;color:var(--accent-lift);white-space:nowrap}
+.idea .out span{display:block;font-size:10.5px;color:var(--ink3);margin-top:3px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+.idea .seeit{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-size:12.5px;
+  font-weight:600;color:var(--accent-lift)}
+.idea .seeit svg{width:12px;height:12px}
+
+.band{background:var(--surf);border:1px solid var(--hair);border-radius:28px;box-shadow:0 2px 10px rgba(20,35,42,.04);padding:40px 44px;margin-top:44px;
+  display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+@media(max-width:700px){.band{padding:28px 24px;gap:22px}}
+.band .lab{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+.band .txt{flex:1;min-width:240px}
+.band .txt p{font-size:15.5px;line-height:1.6;color:var(--ink2);margin:0}
+.band .nums{display:flex;gap:34px}
+.band .nums div b{display:block;font-size:30px;font-weight:700;letter-spacing:-.035em;color:var(--accent-lift)}
+.band .nums div span{display:block;font-size:11px;color:var(--ink3);margin-top:2px;letter-spacing:.04em;
+  text-transform:uppercase;font-weight:600}
+
+.cta-row{display:flex;justify-content:center;margin-top:52px;align-items:center;gap:22px;flex-wrap:wrap}
+.bigbtn{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:#fff;
+  font-size:15px;font-weight:700;letter-spacing:-.01em;padding:15px 26px;border-radius:30px;transition:.16s}
+.bigbtn:hover{filter:brightness(1.08)}
+.bigbtn svg{width:15px;height:15px}
+
+.foot{border-top:1px solid var(--hair);padding:36px 0 70px;font-size:12.5px;line-height:1.6;color:var(--ink3)}
+
+/* ============ prototype stage ============ */
+.stage{display:grid;grid-template-columns:minmax(440px,1fr) minmax(400px,470px);gap:0;
+  align-items:start;min-height:calc(100vh - 58px)}
+@media(max-width:1080px){.stage{grid-template-columns:1fr}}
+.phonecol{padding:34px 24px 46px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.panelcol{border-left:1px solid var(--hair);background:var(--panel);color:var(--panel-ink);
+  min-height:calc(100vh - 58px);position:sticky;top:58px;max-height:calc(100vh - 58px);overflow-y:auto}
+@media(max-width:1080px){.panelcol{position:static;max-height:none;border-left:none;border-top:1px solid var(--hair)}}
+
+.phone{position:relative;width:390px;height:844px;flex:none;background:#000;border:11px solid #000;
+  border-radius:46px;box-shadow:0 0 0 1.5px #D2DCE0,0 34px 70px -22px rgba(20,35,42,.35)}
+.phone-in{position:absolute;inset:0;border-radius:36px;overflow:hidden;background:var(--bp-g2);color-scheme:only light}
+.island{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:104px;height:30px;background:#000;
+  border-radius:16px;z-index:60;pointer-events:none}
+.sbar{position:absolute;top:0;left:0;right:0;height:50px;z-index:55;pointer-events:none;display:flex;
+  align-items:center;justify-content:space-between;padding:14px 28px 0 34px;font:700 15px/1 -apple-system,'Open Sans',sans-serif;color:#111;transition:color .3s}
+.sbar.light{color:#fff}
+.sbar .glyphs{display:flex;gap:5px;align-items:center}
+.homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:134px;height:5px;
+  border-radius:3px;background:#111;z-index:56;pointer-events:none;transition:background .3s}
+.homebar.light{background:rgba(255,255,255,.9)}
+.screenwrap{position:absolute;inset:0;overflow:hidden;background:var(--bp-g2)}
+
+/* ============ phone screens — Bumpy's system, all prefixed scr-/bp- ============ */
+.scr{position:absolute;inset:0;display:flex;flex-direction:column;color:#fff;
+  background:linear-gradient(158deg,var(--bp-g1) 0%,var(--bp-g2) 52%,var(--bp-g3) 100%);
+  font-family:'Open Sans',-apple-system,sans-serif;
+  transform:translateX(100%);transition:transform .36s cubic-bezier(.32,.72,0,1);z-index:10;will-change:transform}
+.scr.is-active{transform:translateX(0);z-index:20}
+.scr.is-past{transform:translateX(-24%)}
+.scr.sheet{transform:translateY(100%)}
+.scr.sheet.is-active{transform:translateY(0);z-index:30}
+.scr.nofx{transition:none}
+.scr-top{flex:none;padding:84px 16px 0;position:relative;z-index:2}
+.scr-body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:0 16px;scrollbar-width:none;position:relative;z-index:2}
+.scr-body::-webkit-scrollbar{display:none}
+.scr-foot{flex:none;padding:10px 16px 28px;position:relative;z-index:2}
+
+/* their header: a thin white progress line, no back button */
+.bp-prog{position:absolute;left:14px;right:14px;top:86px;height:3.5px;border-radius:2px;background:rgba(255,255,255,.3);overflow:hidden}
+.bp-prog i{display:block;height:100%;background:#fff;border-radius:2px;transition:width .4s cubic-bezier(.32,.72,0,1)}
+.bp-h{font-size:25px;line-height:1.18;font-weight:800;letter-spacing:-.01em;margin:46px 0 0;color:#fff}
+.bp-sub{font-size:15.5px;line-height:1.4;color:rgba(255,255,255,.95);margin:12px 0 0;font-weight:400}
+
+/* round white arrow button */
+.bp-arrowrow{display:flex;justify-content:flex-end}
+.bp-arrow{width:60px;height:60px;border-radius:50%;background:#fff;display:grid;place-items:center;color:var(--bp-teal);
+  box-shadow:0 4px 14px rgba(0,60,80,.12);transition:opacity .2s}
+.bp-arrow svg{width:26px;height:26px}
+.bp-arrow[disabled]{opacity:.5;cursor:default}
+/* wide white button (their tracking screen) */
+.bp-btn{display:block;width:100%;height:50px;border-radius:12px;background:#fff;color:#111;
+  font:700 17px/1 'Open Sans',sans-serif;box-shadow:0 2px 10px rgba(0,60,80,.08)}
+
+/* name */
+.bp-field{display:block;width:100%;height:46px;margin-top:18px;border-radius:10px;background:var(--bp-field);border:2px solid #9FD9E7;
+  padding:0 14px;font:400 17px/1 'Open Sans',sans-serif;color:var(--bp-ink);outline:none}
+.bp-field:focus{border-color:#6CC9DF}
+.bp-tiplink{display:inline-block;margin:13px 0 0 16px;font-size:14px;font-weight:600;color:#2E5F6E;text-decoration:underline;text-underline-offset:3px}
+
+/* date wheel — their white card with three columns */
+.bp-dob{position:relative;margin-top:30px;background:#fff;border:1.5px solid #6E7B80;border-radius:var(--r-ctl);height:217px;padding:0 30px;display:flex;overflow:hidden}
+.bp-dobbar{position:absolute;left:34px;right:34px;top:93px;height:31px;border-radius:8px;background:#F2F2F2;pointer-events:none}
+.bp-wh{position:relative;height:217px;overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none;
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 28%,#000 72%,transparent);
+          mask-image:linear-gradient(180deg,transparent,#000 28%,#000 72%,transparent)}
+.bp-wh::-webkit-scrollbar{display:none}
+.bp-wh .sp{height:93px}
+.bp-wh .it{height:31px;scroll-snap-align:center;display:flex;align-items:center;font:400 20px/1 -apple-system,'Open Sans',sans-serif;color:#222;white-space:nowrap}
+.bp-wh.m{flex:1.6}.bp-wh.d{flex:.8;text-align:center}.bp-wh.y{flex:1}
+.bp-wh.d .it,.bp-wh.y .it{justify-content:center}
+
+/* option rows (looking for, goal) */
+.bp-opts{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.bp-opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border-radius:var(--r-ctl);
+  padding:0 14px 0 14px;min-height:49px;color:var(--bp-ink);font:400 18px/1.25 'Open Sans',sans-serif;border:2px solid transparent;transition:.15s}
+.bp-opt .tx{flex:1}
+.bp-rad{width:21px;height:21px;flex:none;border-radius:50%;border:2px solid var(--bp-radio);display:grid;place-items:center;transition:.15s}
+.bp-rad i{width:11px;height:11px;border-radius:50%;background:var(--bp-teal);opacity:0;transition:.15s}
+.bp-opt.on{border-color:var(--bp-teal)}
+.bp-opt.on .bp-rad{border-color:var(--bp-teal)}
+.bp-opt.on .bp-rad i{opacity:1}
+.bp-goal{align-items:flex-start;padding:13px 14px 12px}
+.bp-goal .tx b{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;color:var(--bp-ink)}
+.bp-goal .tx b svg{width:22px;height:22px;flex:none}
+.bp-goal .tx span{display:block;font-size:12.5px;line-height:1.5;color:var(--bp-txt);margin-top:5px}
+.bp-goal .bp-rad{margin-top:2px}
+
+/* interests */
+.bp-sec{margin:24px 0 0 12px;font:600 17px/1.2 'Open Sans',sans-serif;color:#fff}
+.bp-chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0 12px}
+.bp-chip{height:32px;padding:0 12px 0 10px;border-radius:16px;background:#fff;border:1px solid var(--bp-chipline);display:inline-flex;align-items:center;gap:6px;
+  font:400 14px/1 'Open Sans',sans-serif;color:var(--bp-ink);transition:.14s}
+.bp-chip .em{font-size:15px;line-height:1}
+.bp-chip.on{background:#E3F7FA;border:2px solid var(--bp-teal);padding:0 11px 0 9px}
+.bp-more{display:block;margin:20px auto 0;font:600 13.5px/1 'Open Sans',sans-serif;color:#EAF8FB}
+.bp-ifoot{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.bp-skip{font:400 16px/1 'Open Sans',sans-serif;color:#1E2A2E;padding:10px 4px}
+.bp-savebtn{width:166px;height:49px;border-radius:12px;background:var(--bp-save);color:#111;font:700 17px/1 'Open Sans',sans-serif;transition:.15s}
+.bp-savebtn.ready{background:#fff;box-shadow:0 2px 10px rgba(0,60,80,.1)}
+
+/* photo */
+.bp-photorow{display:flex;align-items:center;justify-content:space-between;width:100%;height:50px;margin-top:22px;border-radius:12px;background:#fff;
+  padding:0 14px;font:400 18px/1 'Open Sans',sans-serif;color:var(--bp-ink)}
+.bp-photorow svg{width:20px;height:20px}
+.bp-photorow.done{color:#1E7F8C;font-weight:600}
+.bp-photoprev{display:none;width:118px;height:150px;margin-top:14px;border-radius:12px;overflow:hidden}
+.bp-photoprev.on{display:block}
+.scr--photo .scr-foot{padding:0}
+.scr--photo .bp-arrowrow{padding:0 16px 14px}
+.bp-tipsbar{background:#fff;color:var(--bp-ink);padding:16px 16px 30px;display:flex;gap:12px}
+.bp-tipsbar svg{width:22px;height:22px;flex:none;margin-top:1px}
+.bp-tipsbar p{font-size:15.5px;line-height:1.5}
+.bp-tipsbar a{font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+/* avatar art: their own two-silhouette mark, single */
+.bp-ava{width:100%;height:100%;display:block;background:linear-gradient(160deg,#E7F7FA,#C9EAF3)}
+
+/* profile preview */
+.bp-pcard{margin-top:18px;background:#fff;border-radius:var(--r-media);overflow:hidden;color:var(--bp-ink)}
+.bp-pphoto{position:relative;height:190px}
+.bp-pphoto .bp-ava{position:absolute;inset:0}
+.bp-pname{position:absolute;left:14px;bottom:12px;font:800 25px/1 'Open Sans',sans-serif;color:#fff;text-shadow:0 1px 8px rgba(0,40,60,.35)}
+.bp-pphoto::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(20,90,110,.45))}
+.bp-pname{z-index:2}
+.bp-pin{padding:12px 14px 14px}
+.bp-pgoal{display:flex;align-items:center;gap:9px;font:600 15.5px/1.3 'Open Sans',sans-serif}
+.bp-pgoal svg{width:20px;height:20px;flex:none}
+.bp-plook{font-size:13.5px;color:var(--bp-txt);margin-top:5px}
+.bp-pchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.bp-pchips .bp-chip{height:28px;font-size:12.5px;padding:0 10px 0 8px}
+.bp-pchips .bp-chip .em{font-size:13px}
+.bp-stat{margin-top:10px;background:rgba(255,255,255,.2);border-radius:12px;padding:11px 13px;font-size:13.5px;line-height:1.45;color:#fff;display:flex;gap:10px;align-items:flex-start}
+.bp-stat b{font-weight:800}
+.bp-stat svg{width:18px;height:18px;flex:none;margin-top:1px}
+
+/* intro video — their opening frame */
+.scr--video{background:var(--bp-night)}
+.bp-vid{position:absolute;inset:0;overflow:hidden;background:var(--bp-night)}
+.bp-vid img{position:absolute;left:0;top:14%;width:100%;height:auto;display:block;transform-origin:42% 48%;transform:scale(1)}
+.scr--video.is-active .bp-vid img{animation:push 7s ease-out forwards}
+@keyframes push{from{transform:scale(1)}to{transform:scale(1.07)}}
+.bp-vt{position:absolute;left:0;right:0;bottom:142px;text-align:center;font:400 36px/1 'Open Sans',sans-serif;font-stretch:75%;
+  letter-spacing:-.01em;color:#fff;text-shadow:0 0 6px rgba(255,255,255,.75),0 0 16px rgba(255,255,255,.35);opacity:0;z-index:3}
+.scr--video.is-active .bp-vt{animation:vt 1.4s .5s ease forwards}
+@keyframes vt{to{opacity:1}}
+.bp-sound{position:absolute;right:20px;bottom:44px;z-index:3;width:46px;height:46px;border-radius:50%;background:rgba(220,220,220,.85);display:grid;place-items:center;color:#222}
+.bp-sound svg{width:22px;height:22px}
+
+/* paywall — their Gold screen */
+.scr--pay,.scr--offer{color:var(--bp-ink);background:radial-gradient(70% 50% at 50% 42%,var(--bp-gold2) 0%,#F6D45A 55%,var(--bp-gold1) 100%)}
+.scr--pay .scr-top,.scr--offer .scr-top{padding:56px 16px 0}
+.bp-gh{display:flex;align-items:center;justify-content:center;position:relative;height:40px}
+.bp-gh h3{font:600 18px/1 'Open Sans',sans-serif;color:#1C1C1C}
+.bp-x{position:absolute;left:4px;top:2px;width:36px;height:36px;display:grid;place-items:center;color:#2A2A2A}
+.bp-x svg{width:24px;height:24px}
+.bp-car{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -16px}
+.bp-car::-webkit-scrollbar{display:none}
+.bp-slide{flex:none;width:100%;scroll-snap-align:center;text-align:center;padding:14px 16px 0}
+.bp-slide img{width:70px;height:70px;display:block;margin:0 auto;border-radius:50%}
+.bp-slide h2{font:700 22px/1.2 'Open Sans',sans-serif;color:#141414;margin-top:16px;letter-spacing:-.005em}
+.bp-dots{display:flex;justify-content:center;gap:9px;margin-top:16px}
+.bp-dots i{width:5px;height:5px;border-radius:50%;background:rgba(60,50,20,.25);transition:.2s}
+.bp-dots i.on{background:#333}
+.bp-proof{display:flex;justify-content:center;margin-top:16px;background:rgba(255,255,255,.55);border-radius:12px;padding:9px 6px}
+.bp-proof div{flex:1;text-align:center;border-left:1px solid rgba(60,50,20,.14);padding:0 4px}
+.bp-proof div:first-child{border-left:none}
+.bp-proof b{display:block;font:800 15px/1.1 'Open Sans',sans-serif;color:#141414}
+.bp-proof span{display:block;font-size:10.5px;line-height:1.25;color:#3D3726;margin-top:3px}
+.bp-plans{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:26px;align-items:center}
+.bp-plan{position:relative;background:var(--bp-plan);border:2px solid #fff;border-radius:12px;height:156px;padding:10px 2px 8px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;color:#141414;transition:height .18s,border-color .18s,background .18s}
+.bp-plan.on{background:#fff;border:2.5px solid #111;height:178px}
+.bp-plan .n{font:800 26px/1 'Open Sans',sans-serif}
+.bp-plan .u{font:400 13px/1 'Open Sans',sans-serif;margin-top:7px}
+.bp-plan .p{font:400 12.5px/1 'Open Sans',sans-serif;margin-top:7px}
+.bp-plan .pw{font:400 10.5px/1 'Open Sans',sans-serif;color:#6B6658;margin-top:5px;white-space:nowrap}
+.bp-plan .sv{font:800 10.5px/1 'Open Sans',sans-serif;margin-top:9px;padding:4px 5px;border-radius:5px;white-space:nowrap}
+.bp-plan.on .sv{background:var(--bp-pill)}
+.bp-pop{position:absolute;left:-2.5px;right:-2.5px;top:-17px;height:20px;border-radius:9px 9px 0 0;background:#000;color:#fff;
+  font:800 8px/20px 'Open Sans',sans-serif;font-stretch:87%;letter-spacing:0;text-align:center;white-space:nowrap;overflow:hidden}
+.bp-plan:not(.on) .bp-pop{left:-2px;right:-2px}
+.bp-legal{font-size:12px;line-height:1.4;color:#2D2A20;text-align:center;margin:0 4px 14px}
+.bp-legal u{font-weight:700}
+.bp-cont{display:block;width:100%;height:50px;border-radius:12px;background:#fff;border:2px solid #222;color:#111;font:700 18px/1 'Open Sans',sans-serif}
+
+/* offer — one plan, their card */
+.scr--offer{background:radial-gradient(70% 45% at 50% 40%,var(--bp-gold2) 0%,#F6D45A 55%,var(--bp-gold1) 100%)}
+.bp-oh{font:800 25px/1.18 'Open Sans',sans-serif;color:#141414;text-align:center;margin:18px 8px 0;letter-spacing:-.01em}
+.bp-ocard{position:relative;margin:22px auto 0;width:220px;background:#fff;border:2.5px solid #111;border-radius:14px;padding:22px 10px 20px;text-align:center;color:#141414}
+.bp-ocard .n{font:800 46px/1 'Open Sans',sans-serif}
+.bp-ocard .u{font:400 18px/1 'Open Sans',sans-serif;margin-top:8px}
+.bp-ocard .p{font:400 17px/1 'Open Sans',sans-serif;margin-top:10px}
+.bp-ocard .sv{display:inline-block;font:800 15px/1 'Open Sans',sans-serif;margin-top:14px;padding:7px 10px;border-radius:7px;background:var(--bp-pill)}
+.bp-oline{font-size:15px;line-height:1.45;color:#2D2A20;text-align:center;margin:16px 10px 0}
+.bp-oline b{font-weight:800;color:#141414}
+.bp-ofeat{margin-top:16px;background:rgba(255,255,255,.55);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.bp-ofeat div{display:flex;align-items:center;gap:11px;font:600 14.5px/1.2 'Open Sans',sans-serif;color:#1C1C1C}
+.bp-ofeat img{width:34px;height:34px;border-radius:50%;flex:none}
+.bp-ofeat .gl{width:34px;height:34px;border-radius:50%;background:#fff;display:grid;place-items:center;flex:none}
+.bp-ofeat .gl svg{width:18px;height:18px}
+
+/* notifications — their permission screen */
+.bp-bell{display:block;width:90px;height:auto;margin:150px auto 0}
+.bp-nh{font:700 26px/1.2 'Open Sans',sans-serif;color:#fff;text-align:center;margin-top:30px}
+.bp-alertwrap{position:relative;margin:56px 16px 0}
+.bp-alert{background:#F2F2F2;border-radius:14px;overflow:hidden;color:#111;text-align:center}
+.bp-alert h4{font:600 17px/1.3 'Open Sans',sans-serif;padding:18px 16px 0}
+.bp-alert p{font-size:14.5px;line-height:1.45;padding:8px 18px 18px;color:#1C1C1C}
+.bp-alert .bt{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #9A9A9A}
+.bp-alert .bt button{height:46px;font:400 17px/1 'Open Sans',sans-serif;color:var(--bp-link)}
+.bp-alert .bt button+button{border-left:1px solid #9A9A9A;font-weight:600}
+.bp-wave{position:absolute;font-size:30px;line-height:1}
+
+/* dark mode — an approximation: no dark frames were supplied */
+.phone-in.dark{--bp-g1:#0F3B40;--bp-g2:#10343F;--bp-g3:#122C3E;--bp-card:#1C282D;--bp-field:#1C282D;--bp-ink:#EEF3F4;--bp-txt:#B5C1C5;
+  --bp-chipline:#34444A;--bp-plan:#2A2618;--bp-gold1:#3E3008;--bp-gold2:#5C4C16}
+.phone-in.dark .screenwrap{background:var(--bp-g2)}
+.phone-in.dark .bp-opt,.phone-in.dark .bp-chip,.phone-in.dark .bp-photorow,.phone-in.dark .bp-pcard,.phone-in.dark .bp-tipsbar,
+.phone-in.dark .bp-dob{background:var(--bp-card);color:var(--bp-ink)}
+.phone-in.dark .bp-dob{border-color:#3A4A50}
+.phone-in.dark .bp-dobbar{background:#26363C}
+.phone-in.dark .bp-wh .it{color:#E6ECEE}
+.phone-in.dark .bp-chip.on{background:#103E46}
+.phone-in.dark .bp-field{color:var(--bp-ink);border-color:#2B5E6B}
+.phone-in.dark .bp-arrow,.phone-in.dark .bp-btn{background:#E9F3F5;color:#0B6F83}
+.phone-in.dark .bp-btn{color:#111}
+.phone-in.dark .bp-savebtn{background:#25434B;color:#B8CDD2}
+.phone-in.dark .bp-savebtn.ready{background:#E9F3F5;color:#111}
+.phone-in.dark .bp-skip{color:#CFE0E4}
+.phone-in.dark .bp-tiplink{color:#9FD9E7}
+.phone-in.dark .bp-photorow.done{color:#6FD3E2}
+.phone-in.dark .bp-ava{background:linear-gradient(160deg,#21434B,#1A343D)}
+.phone-in.dark .bp-alert{background:#2A2C2E;color:#EEE}
+.phone-in.dark .bp-alert p{color:#D8D8D8}
+.phone-in.dark .bp-alert .bt,.phone-in.dark .bp-alert .bt button+button{border-color:#4A4C4E}
+.phone-in.dark .scr--pay,.phone-in.dark .scr--offer{color:#F2EEDC;
+  background:radial-gradient(70% 50% at 50% 42%,#4A3C10 0%,#2E2508 55%,#1C1705 100%)}
+.phone-in.dark .bp-gh h3,.phone-in.dark .bp-slide h2,.phone-in.dark .bp-proof b,.phone-in.dark .bp-oh,.phone-in.dark .bp-oline b{color:#F7F2DE}
+.phone-in.dark .bp-x{color:#F2EEDC}
+.phone-in.dark .bp-proof,.phone-in.dark .bp-ofeat{background:rgba(255,255,255,.08)}
+.phone-in.dark .bp-proof span,.phone-in.dark .bp-legal,.phone-in.dark .bp-oline{color:#D9D1B4}
+.phone-in.dark .bp-proof div{border-color:rgba(255,255,255,.12)}
+.phone-in.dark .bp-dots i{background:rgba(255,255,255,.25)}
+.phone-in.dark .bp-dots i.on{background:#F2EEDC}
+.phone-in.dark .bp-plan{border-color:#3E3820;color:#F2EEDC}
+.phone-in.dark .bp-plan .pw{color:#BDB396}
+.phone-in.dark .bp-plan.on,.phone-in.dark .bp-ocard{background:#1E1C14;border-color:var(--bp-pill);color:#F7F2DE}
+.phone-in.dark .bp-plan.on .sv,.phone-in.dark .bp-ocard .sv{color:#141414}
+.phone-in.dark .bp-cont{background:#1E1C14;border-color:var(--bp-pill);color:#F7F2DE}
+.phone-in.dark .bp-ofeat div{color:#F2EEDC}
+.phone-in.dark .bp-ofeat .gl{background:#2A2618}
+
+/* prototype toolbar, walkthrough, QR */
+.tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:520px}
+.seg{display:inline-flex;align-items:center;background:#fff;border:1px solid #DCE5E8;border-radius:20px;padding:3px;gap:2px}
+.seg button{padding:6px 11px;border-radius:16px;font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:var(--ink2);transition:.14s}
+.seg button.on{background:var(--ink);color:#fff}
+.demo-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:20px;background:var(--accent);color:#fff;
+  font:700 12px/1 'Plus Jakarta Sans',sans-serif}
+.demo-cap{width:390px;max-width:calc(100vw - 24px);background:#fff;border:1px solid var(--hair);border-radius:16px;padding:14px 14px 12px;
+  display:flex;align-items:center;gap:12px;position:relative;overflow:hidden;box-shadow:0 4px 18px rgba(20,35,42,.07)}
+.demo-cap .bar{position:absolute;left:0;top:0;right:0;height:3px;background:#EAF1F3}
+.demo-cap .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s linear}
+.demo-cap p{flex:1;font-size:13.5px;line-height:1.45;color:var(--ink);margin:0;font-weight:500}
+.demo-cap button{font:700 12px/1 'Plus Jakarta Sans',sans-serif;color:var(--ink2);padding:7px 10px;border-radius:12px;border:1px solid #DCE5E8;flex:none}
+.finger{position:absolute;z-index:90;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(20,35,42,.26);
+  border:2px solid rgba(255,255,255,.95);box-shadow:0 4px 14px rgba(0,0,0,.25);pointer-events:none;opacity:0;left:50%;top:60%;
+  transition:left .32s cubic-bezier(.4,0,.2,1),top .32s cubic-bezier(.4,0,.2,1),opacity .2s,transform .15s}
+.finger.show{opacity:1}
+.finger.press{transform:scale(.78);background:rgba(20,35,42,.4)}
+.qr{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:10px 16px 10px 10px;text-align:left}
+.qr img{width:123px;height:123px;display:block;image-rendering:pixelated;border-radius:6px}
+.qr span{font-size:12.5px;line-height:1.45;color:var(--ink2)}
+.qr b{display:block;color:var(--ink);font-size:13.5px}
+@media(max-width:1080px){.qr{display:none}}
+
+#view-proto .tools{order:0} #view-proto .demo-cap{order:1} #view-proto .phone{order:2} #view-proto .chips{order:3}
+#view-proto .chiphint{order:4} #view-proto .qr{order:5}
+.cta-row .qr{order:2}
+/* on a phone: the prototype is the screen */
+@media(max-width:500px){
+  html:not(.embed) #view-proto .phonecol{padding:0 0 28px;gap:14px}
+  html:not(.embed) #view-proto .phone{width:100vw;height:calc(100svh - 58px);min-height:640px;border:0;border-radius:0;box-shadow:none;order:1}
+  html:not(.embed) #view-proto .phone-in{border-radius:0}
+  html:not(.embed) #view-proto .island,html:not(.embed) #view-proto .sbar,html:not(.embed) #view-proto .homebar{display:none}
+  html:not(.embed) #view-proto .scr-top{padding-top:44px}
+  html:not(.embed) #view-proto .bp-prog{top:18px}
+  html:not(.embed) #view-proto .scr-foot{padding-bottom:18px}
+  html:not(.embed) #view-proto .scr--photo .scr-foot{padding-bottom:0}
+  html:not(.embed) #view-proto .bp-tipsbar{padding-bottom:18px}
+  html:not(.embed) #view-proto .scr--pay .scr-top,html:not(.embed) #view-proto .scr--offer .scr-top{padding-top:12px}
+  html:not(.embed) #view-proto .bp-bell{margin-top:90px}
+  html:not(.embed) #view-proto .tools{order:3;padding:0 12px}
+  html:not(.embed) #view-proto .demo-cap{position:fixed;left:12px;right:12px;bottom:12px;width:auto;max-width:none;z-index:95}
+  html:not(.embed) #view-proto .chips{order:4;padding:0 12px}
+  html:not(.embed) #view-proto .chiphint{order:5}
+}
+
+/* overview: walkthrough button */
+.herobtns{display:flex;justify-content:center;margin-top:30px}
+.ghostbtn{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--hair2);color:var(--ink);font-size:14px;
+  font-weight:700;padding:9px 20px 9px 9px;border-radius:30px;box-shadow:0 2px 12px rgba(20,35,42,.06);transition:.16s}
+.ghostbtn:hover{box-shadow:0 4px 18px rgba(20,35,42,.1)}
+.ghostbtn .pl{width:30px;height:30px;border-radius:50%;background:var(--accent);display:grid;place-items:center}
+.ghostbtn .pl svg{width:12px;height:12px;fill:#fff;margin-left:2px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:470px;margin:0 auto}
+.chip{padding:7px 13px;border-radius:20px;border:1px solid #DCE5E8;background:#fff;
+  font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:var(--ink2);transition:.14s}
+.chip:hover{color:var(--ink);border-color:#BFD0D5}
+.chip.offer{border-style:dashed;border-color:var(--accent);color:var(--accent-lift)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff;border-style:solid}
+.chiphint{text-align:center;font-size:11px;color:var(--ink3);margin:0;max-width:430px}
+
+/* ============ the short panel ============ */
+.pn{padding:30px 30px 60px}
+.pn-n{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.pn-n.ctx{color:var(--panel-muted)}
+.pn-t{font-size:23px;line-height:1.18;font-weight:700;letter-spacing:-.028em;margin:8px 0 0;color:var(--panel-ink)}
+.pn-hyp{font-size:15px;line-height:1.62;color:#2E383C;margin:16px 0 0}
+.pn-hyp b{font-weight:700;color:var(--panel-ink)}
+.pn-out{margin-top:22px;border-top:1px solid var(--panel-line);padding-top:18px}
+.pn-out .lab{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--panel-muted)}
+.pn-out .v{font-size:31px;font-weight:700;letter-spacing:-.035em;color:var(--accent-ink);margin-top:7px;line-height:1}
+.pn-kept{margin-top:22px;font-size:12.5px;line-height:1.55;color:var(--panel-muted)}
+.pn-kept b{color:#2E383C;font-weight:700}
+.pn-foot{font-size:11.5px;line-height:1.55;color:var(--panel-muted);border-top:1px solid var(--panel-line);
+  padding-top:14px;margin-top:26px}
+.pn-sep{height:1px;background:var(--panel-line);margin:26px 0}
+.hidden{display:none !important}
+/* welcome — new screen, built from their parts: gradient, white wordmark, white button */
+.scr--wel .scr-body{display:flex;flex-direction:column;justify-content:center;text-align:center;padding:0 26px}
+.bp-welmark{color:#fff;width:150px;margin:0 auto}
+.bp-welmark svg{width:150px;height:67px;display:block}
+.bp-welh{font:800 30px/1.15 'Open Sans',sans-serif;letter-spacing:-.015em;color:#fff;margin-top:30px}
+.bp-wels{font-size:16px;line-height:1.45;color:rgba(255,255,255,.95);margin-top:14px}
+.bp-welproof{align-self:center;margin-top:26px;background:rgba(255,255,255,.2);border-radius:12px;padding:9px 14px;font-size:13.5px;line-height:1.3;color:#fff}
+.bp-welproof b{font-weight:800}
+.phone-in.dark .bp-welproof{background:rgba(255,255,255,.1)}
+
+/* ============ volume 2: two keyword flows side by side ============ */
+:root{--dt:#E8436A;--dt-bg:#FDE8EE;--dt-ink:#B3264A;--fr:#8B3FD9;--fr-bg:#F1E7FC;--fr-ink:#6A22B0;--win:#1FA37A;--lo:#E0A800;--zero:#D9364F}
+.nav-in{max-width:none}
+body:not(.proto) .nav-in{max-width:1080px}
+.nav-tools{display:none;align-items:center;gap:8px;margin-left:auto}
+body.proto .nav-tools{display:flex}
+body.proto .nav-links{margin-left:14px}
+.nav-links button{font-size:13.5px;padding:8px 16px}
+.hdemo-btn{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:#fff;font:700 12.5px/1 'Plus Jakarta Sans',sans-serif;padding:9px 14px;border-radius:20px;white-space:nowrap}
+.hdemo-btn svg{width:11px;height:11px;fill:#fff}
+@media(max-width:899px){body.proto .nav-tools{display:none}}
+.pdot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;flex:none}
+.pdot.d{background:var(--dt)} .pdot.f{background:var(--fr)}
+
+/* overview additions */
+.fb2{max-width:860px;grid-template-columns:1fr 1fr;gap:34px;padding-top:34px}
+.fb2 .fb-col{display:flex;flex-direction:column;gap:14px}
+.fb2 .fb-k{grid-column:auto;text-align:left;margin-bottom:2px}
+.fb2 .asa-col{border-left:1px solid var(--hair);padding-left:34px}
+.fb2 .asa-col .fb-k{color:var(--fr-ink)}
+.fb2 .asa-col .tick{background:var(--fr-bg)}
+.fb2 .asa-col .tick svg{stroke:var(--fr-ink)}
+@media(max-width:700px){.fb2 .asa-col{border-left:none;padding-left:0;border-top:1px solid var(--hair);padding-top:20px}}
+.herobtns{gap:18px;align-items:center;flex-wrap:wrap}
+.herobtns .qr img{width:90px;height:90px}
+.asa{padding:76px 0 0}
+.asa-card{position:relative;overflow:hidden;border-radius:28px;background:#0F2E37;color:#fff;padding:46px 48px;display:grid;grid-template-columns:1fr 280px;gap:40px}
+@media(max-width:860px){.asa-card{grid-template-columns:1fr;padding:32px 26px;gap:26px}}
+.asa-card::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 90% at 0% 0%,rgba(232,67,106,.26),transparent 70%),radial-gradient(60% 80% at 100% 100%,rgba(139,63,217,.34),transparent 70%)}
+.asa-card>*{position:relative}
+.asa-card .sec-k{color:#7FE0E6;margin-bottom:14px}
+.asa-card h2{font-size:40px;line-height:1.1;font-weight:800;letter-spacing:-.035em;margin:0 0 18px;color:#fff}
+.asa-card h2 em{font-style:normal;color:#7FE0E6}
+.asa-card p{font-size:16.5px;line-height:1.66;color:rgba(255,255,255,.8);margin:0;max-width:600px}
+.asa-card p b{color:#fff;font-weight:700}
+.asa-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;align-items:center}
+.asa-go{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#0F2E37;font-size:14.5px;font-weight:700;padding:13px 20px;border-radius:30px}
+.asa-go svg,.asa-alt svg{width:14px;height:14px}
+.asa-alt{display:inline-flex;align-items:center;gap:8px;color:#fff;font-size:14.5px;font-weight:700;padding:13px 20px;border-radius:30px;border:1px solid rgba(255,255,255,.3)}
+.asa-alt:hover{background:rgba(255,255,255,.08)}
+.asa-stats{display:flex;flex-direction:column;border-left:1px solid rgba(255,255,255,.14);padding-left:30px}
+@media(max-width:860px){.asa-stats{border-left:none;padding-left:0}}
+.asa-stats div{padding:14px 0;border-top:1px solid rgba(255,255,255,.1)}
+.asa-stats div:first-child{border-top:none;padding-top:0}
+.asa-stats b{display:block;font-size:36px;font-weight:700;letter-spacing:-.04em;line-height:1}
+.asa-stats b.r{color:#FF8FA9} .asa-stats b.g{color:#6FE3B4} .asa-stats b.p{color:#C9A2FF}
+.asa-stats span{display:block;font-size:12.5px;color:rgba(255,255,255,.7);margin-top:6px;line-height:1.4}
+.band-kw{margin-top:12px!important;padding-top:12px;border-top:1px solid var(--hair);font-size:14.5px!important}
+.band-kw b{color:var(--accent-lift);font-weight:700}
+.kwsec,.next,.kwall{margin-top:96px}
+.cmpt{margin-top:28px;background:#fff;border:1px solid var(--hair);border-radius:22px;overflow:hidden}
+.cmpt-h,.cmpt-r{display:grid;grid-template-columns:150px 1fr 1fr 28px;gap:20px;align-items:center;padding:16px 24px;text-align:left;width:100%}
+.cmpt-h{background:#F7FAFB;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+.cmpt-h .f,.cmpt-h .b{text-transform:none;letter-spacing:-.01em;font-size:14px;font-weight:800;display:flex;align-items:center}
+.cmpt-h .f{color:var(--dt-ink)} .cmpt-h .b{color:var(--fr-ink)}
+.cmpt-r{border-top:1px solid var(--hair);font-size:14.5px;line-height:1.45;color:var(--ink2);transition:.15s}
+.cmpt-r:hover{background:#F5FBFC}
+.cmpt-r .s{font-weight:700;color:var(--ink)}
+.cmpt-r i{font-style:normal;color:var(--ink3);font-weight:700;transition:.15s}
+.cmpt-r:hover i{color:var(--ink);transform:translateX(3px)}
+@media(max-width:760px){.cmpt-h{display:none}.cmpt-r{grid-template-columns:1fr;gap:4px}.cmpt-r i{display:none}
+  .cmpt-r span:nth-child(2)::before{content:'“international dating”: ';font-weight:700;color:var(--dt-ink)}
+  .cmpt-r span:nth-child(3)::before{content:'“make new friends”: ';font-weight:700;color:var(--fr-ink)}}
+.kwt{margin-top:40px;background:var(--surf);border:1px solid var(--hair);border-radius:24px;overflow:hidden}
+.kwt-g{padding:22px 26px 8px;border-top:1px solid var(--hair)}
+.kwt-g:first-child{border-top:none}
+.kwt-gh{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.kwt-gh h4{font-size:16px;font-weight:700;letter-spacing:-.015em}
+.kwt-gh span{font-size:13px;color:var(--ink3)}
+.tagk{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-radius:6px;padding:4px 7px}
+.tagk.win{background:#E3F5EC;color:#0E6B47}.tagk.lose{background:#FCE6EA;color:#A3142F}.tagk.leak{background:#FFF5CC;color:#5E5000}
+.kr{display:grid;grid-template-columns:minmax(150px,1.3fr) 76px minmax(150px,1.2fr) minmax(120px,1fr);gap:16px;align-items:center;
+  padding:11px 0;border-top:1px solid var(--hair);font-size:13.5px}
+.kr.hd{border-top:none;padding:4px 0 6px}
+.kr.hd span{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3)}
+.kr .k{font-weight:600;color:var(--ink)}
+.kr .k small{display:block;font-weight:500;color:var(--ink3);font-size:12px;line-height:1.4}
+.kr .pop{color:var(--ink2);font-variant-numeric:tabular-nums}
+.kr .who{font-size:12.5px;line-height:1.45;font-weight:700;display:flex;align-items:center}
+.kr .who.d{color:var(--dt-ink)} .kr .who.f{color:var(--fr-ink)} .kr .who.n{color:var(--ink3);font-weight:500}
+.sov{display:flex;align-items:center;gap:10px}
+.sov .b{flex:1;height:8px;border-radius:4px;background:rgba(20,35,42,.07);overflow:hidden;min-width:60px}
+.sov .b i{display:block;height:100%;background:var(--win);border-radius:4px}
+.sov.lo .b i{background:var(--lo)}
+.sov.zero .b i{background:var(--zero)}
+.sov em{font-style:normal;font-weight:700;font-size:13px;min-width:56px;text-align:right;font-variant-numeric:tabular-nums}
+@media(max-width:760px){.kr{grid-template-columns:1fr 1fr;gap:6px 14px}.kr.hd{display:none}.kr .pop::before{content:'Popularity ';color:var(--ink3)}.kwt-g{padding:18px 16px 6px}}
+.asa-note{font-size:13px;line-height:1.6;color:var(--ink3);margin-top:16px;max-width:760px}
+.dos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+@media(max-width:860px){.dos{grid-template-columns:1fr}}
+.do{background:var(--surf);border:1px solid var(--hair);border-radius:18px;padding:20px 20px}
+.do h4{font-size:15px;font-weight:700;letter-spacing:-.015em;margin:8px 0 6px;line-height:1.3}
+.do p{font-size:13.5px;line-height:1.55;color:var(--ink2)}
+.do .k{font-size:11px;font-weight:700;letter-spacing:.14em}
+.do .k.d{color:var(--dt-ink)} .do .k.f{color:var(--fr-ink)} .do .k.b{color:var(--accent-lift)}
+.next-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+@media(max-width:860px){.next-steps{grid-template-columns:1fr}}
+.next-steps div{background:#fff;border:1px solid var(--hair);border-radius:20px;padding:24px 24px 26px;position:relative}
+.next-steps div::before{content:'';position:absolute;left:24px;right:24px;top:0;height:4px;border-radius:0 0 3px 3px;background:linear-gradient(90deg,var(--dt) 50%,var(--fr) 50%)}
+.next-steps b{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-lift)}
+.next-steps h4{font-size:19px;font-weight:700;letter-spacing:-.02em;margin:8px 0 8px}
+.next-steps p{font-size:14px;line-height:1.55;color:var(--ink2);margin:0}
+
+/* ---- the two-phone stage ---- */
+html:not(.embed) #view-proto .stage{display:none}
+.p3{display:grid;grid-template-columns:minmax(0,1fr) 370px;height:calc(100vh - 58px);height:calc(100svh - 58px)}
+.p3-stage{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;padding:18px 20px 12px}
+.p3-mtools{display:none;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.p3-mtog{display:none;margin:0 auto 12px;background:#fff;border:1px solid #DCE5E8;border-radius:22px;padding:3px;gap:3px}
+.p3-mtog button{padding:8px 16px;border-radius:18px;font:700 13px/1 'Plus Jakarta Sans',sans-serif;color:var(--ink2)}
+.p3-mtog button[data-one=date].on{background:var(--dt);color:#fff}
+.p3-mtog button[data-one=friend].on{background:var(--fr);color:#fff}
+.duo{flex:1;min-height:0;display:flex;justify-content:center;align-items:center;gap:22px}
+.flow{display:flex;flex-direction:column;align-items:center;gap:10px}
+.kwcard{width:196px;flex:none;align-self:center;border-radius:16px;padding:16px 16px 18px;border:1px solid}
+.kwcard.date{background:var(--dt-bg);border-color:rgba(232,67,106,.25)} .kwcard.friend{background:var(--fr-bg);border-color:rgba(139,63,217,.25)}
+.kwcard .k{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.kwcard .q{display:flex;align-items:flex-start;gap:7px;font-size:17px;line-height:1.25;font-weight:800;letter-spacing:-.02em;margin:9px 0 10px}
+.kwcard .q svg{width:15px;height:15px;flex:none;margin-top:3px}
+.kwcard.date .q{color:var(--dt-ink)} .kwcard.friend .q{color:var(--fr-ink)}
+.kwcard p{font-size:12.5px;line-height:1.5;color:var(--ink2)}
+.kwcard .who{display:block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:12px 0 6px}
+.kwpick{display:flex;flex-wrap:wrap;gap:5px}
+.kwpick button{font:600 11.5px/1 'Plus Jakarta Sans',sans-serif;padding:6px 9px;border-radius:12px;background:#fff;border:1px solid var(--hair2);color:var(--ink2)}
+.kwcard.date .kwpick button.on{background:var(--dt);color:#fff;border-color:var(--dt)}
+.kwcard.friend .kwpick button.on{background:var(--fr);color:#fff;border-color:var(--fr)}
+.kwpill{display:none;align-items:center;gap:7px;font-weight:800;font-size:13px;padding:7px 14px 7px 11px;border-radius:20px;white-space:nowrap}
+.kwpill.date{background:var(--dt-bg);color:var(--dt-ink)} .kwpill.friend{background:var(--fr-bg);color:var(--fr-ink)}
+.kwpill small{font-weight:600;opacity:.7;font-size:11px}
+.kwpill select{appearance:none;-webkit-appearance:none;border:none;background:transparent url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M1 1l4 4 4-4' stroke='%23555' stroke-width='1.6' fill='none'/></svg>") no-repeat right 2px center;padding:0 16px 0 0;font:800 13px/1.2 'Plus Jakarta Sans',sans-serif;color:inherit;cursor:pointer}
+.p3.top .kwcard{display:none} .p3.top .kwpill{display:inline-flex}
+.pbox{position:relative;flex:none}
+.pbox iframe{position:absolute;top:0;left:0;width:390px;height:844px;border:0;transform-origin:0 0;border-radius:46px;background:transparent}
+.pbox::after{content:'';position:absolute;inset:-5px;border-radius:52px;pointer-events:none}
+.flow.date .pbox::after{box-shadow:0 0 0 3px var(--dt),0 30px 60px -28px rgba(179,38,74,.4)}
+.flow.friend .pbox::after{box-shadow:0 0 0 3px var(--fr),0 30px 60px -28px rgba(106,34,176,.4)}
+.p3-bar{flex:none;min-height:46px;display:flex;align-items:center;justify-content:center;margin-top:12px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;max-width:900px}
+.step{position:relative;padding:8px 13px;border-radius:20px;border:1px solid #DCE5E8;background:#fff;font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:var(--ink2);transition:.14s}
+.step:hover{color:var(--ink);border-color:#BFD0D5}
+.step.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.step.offer:not(.on){border-style:dashed;border-color:var(--accent);color:var(--accent-lift)}
+.step.diff::after{content:'';position:absolute;top:-3px;right:-3px;width:10px;height:10px;border-radius:50%;
+  background:linear-gradient(90deg,var(--dt) 50%,var(--fr) 50%);box-shadow:0 0 0 2px var(--bg)}
+.hcap{display:flex;align-items:center;gap:14px;background:#0F2E37;color:#fff;border-radius:16px;padding:10px 12px 10px 18px;max-width:760px;width:100%}
+.hcap p{flex:1;font-size:13.5px;line-height:1.4;font-weight:600;margin:0}
+.hcap .bar{width:64px;height:4px;border-radius:2px;background:rgba(255,255,255,.2);overflow:hidden;flex:none}
+.hcap .bar i{display:block;height:100%;width:0;background:#7FE0E6;transition:width .2s linear}
+.hcap button{font-size:12px;font-weight:700;padding:7px 13px;border-radius:14px;background:rgba(255,255,255,.14)}
+.p3-panel{border-left:1px solid var(--hair);background:var(--panel);color:var(--panel-ink);overflow-y:auto;min-height:0}
+.p3-panel .pn{padding:24px 26px 40px}
+.sh{position:relative;overflow:hidden;border-radius:16px;margin-bottom:24px;background:#0F2E37;color:#fff;box-shadow:0 14px 30px -18px rgba(0,0,0,.6)}
+.sh::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(70% 90% at 0% 0%,rgba(232,67,106,.24),transparent 70%),radial-gradient(60% 80% at 100% 100%,rgba(139,63,217,.3),transparent 70%)}
+.sh>*{position:relative}
+.sh summary{list-style:none;cursor:pointer;padding:15px 16px 14px}
+.sh summary::-webkit-details-marker{display:none}
+.sh .top{display:flex;align-items:flex-start;gap:10px}
+.sh .lab{flex:1;font-size:14px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+.sh .lab small{display:block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7FE0E6;margin-bottom:4px}
+.sh .more{flex:none;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.75);padding:5px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.2);white-space:nowrap}
+.sh[open] .more .o{display:none} .sh:not([open]) .more .c{display:none}
+.sh .lit{display:flex;align-items:center;gap:6px;margin-top:13px}
+.sh .lit button{width:30px;height:26px;border-radius:8px;font:800 11px/1 'Plus Jakarta Sans',sans-serif;background:rgba(255,255,255,.08);color:rgba(255,255,255,.45);transition:.2s}
+.sh .lit button:hover{color:#fff}
+.sh .lit button.on{background:#7FE0E6;color:#0F2E37;box-shadow:0 0 0 3px rgba(127,224,230,.25),0 0 18px rgba(127,224,230,.45)}
+.sh .lit span{margin-left:auto;font-size:11px;font-weight:600;color:rgba(255,255,255,.6);white-space:nowrap}
+.sh ol{list-style:none;padding:0 16px 12px;margin:0}
+.sh li{display:flex;gap:10px;align-items:baseline;padding:9px 0;border-top:1px solid rgba(255,255,255,.1);font-size:12.5px;line-height:1.4;color:rgba(255,255,255,.82);cursor:pointer}
+.sh li:hover{color:#fff}
+.sh li.on{color:#fff;font-weight:700}
+.sh li .n{font-weight:800;color:rgba(255,255,255,.4);font-size:11px;width:16px;flex:none}
+.sh li.on .n{color:#7FE0E6}
+.sh li .t{flex:1}
+.sh li .o{font-weight:700;color:#7FE0E6;font-size:11.5px;white-space:nowrap}
+.pn-badge{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--panel-muted)}
+.pn-badge i{width:10px;height:10px;border-radius:50%;background:linear-gradient(90deg,var(--dt) 50%,var(--fr) 50%)}
+.pn-badge.same i{background:#C4CED3}
+.kc{border-radius:14px;padding:15px 16px 15px 17px;margin-top:12px;border-left:4px solid}
+.kc.date{background:var(--dt-bg);border-color:var(--dt)} .kc.friend{background:var(--fr-bg);border-color:var(--fr)}
+.kc .kk{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;letter-spacing:-.01em}
+.kc.date .kk{color:var(--dt-ink)} .kc.friend .kk{color:var(--fr-ink)}
+.kc .kk svg{width:12px;height:12px}
+.kc p{font-size:13.5px;line-height:1.55;color:#2E383C;margin:7px 0 0}
+.kc p b{color:var(--panel-ink);font-weight:700}
+.kc .ko{display:flex;align-items:baseline;gap:8px;margin-top:10px;padding-top:9px;border-top:1px solid rgba(0,0,0,.08)}
+.kc .ko span{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--panel-muted)}
+.kc .ko b{font-size:15.5px;font-weight:700;letter-spacing:-.02em;white-space:nowrap}
+.kc.date .ko b{color:var(--dt-ink)} .kc.friend .ko b{color:var(--fr-ink)}
+.pn-note{margin-top:14px;font-size:12.5px;line-height:1.55;color:#2E383C;background:#F2F7F8;border-radius:12px;padding:12px 14px}
+.pn-also{margin-top:20px;border-top:1px solid var(--panel-line);padding-top:16px}
+.pn-also .lab{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--panel-muted)}
+.pn-also .row{display:flex;gap:10px;align-items:baseline;margin-top:9px;font-size:13px;line-height:1.4;color:#2E383C;font-weight:600}
+.pn-also .row .o{margin-left:auto;font-weight:700;color:var(--accent-ink);white-space:nowrap;font-size:12.5px}
+.drawer-btn{display:none;position:fixed;right:16px;bottom:16px;z-index:80;background:#0F2E37;color:#fff;font:700 13px/1 'Plus Jakarta Sans',sans-serif;padding:13px 18px;border-radius:24px;box-shadow:0 10px 26px rgba(0,0,0,.3)}
+.drawer-btn i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:linear-gradient(90deg,var(--dt) 50%,var(--fr) 50%)}
+@media(max-width:1249px){
+  .p3{grid-template-columns:minmax(0,1fr)}
+  .p3-panel{position:fixed;top:58px;right:0;bottom:0;width:min(380px,92vw);transform:translateX(102%);transition:transform .25s;z-index:75;box-shadow:-24px 0 50px rgba(0,0,0,.16)}
+  body.drawer .p3-panel{transform:none}
+  body.proto .drawer-btn{display:block}
+}
+@media(max-width:899px){ .p3-mtools{display:flex} }
+@media(max-width:759px){
+  .p3{height:auto;min-height:calc(100svh - 58px)}
+  .p3-stage{padding:14px 12px 80px}
+  .p3-mtog{display:inline-flex}
+  .p3.one .flow{display:none} .p3.one .flow.show{display:flex}
+  .kwcard{display:none!important} .kwpill{display:none!important}
+  .duo{flex:none}
+}
+@media(max-width:520px){.nav-brand b,.nav-brand .sep{display:none}.nav-links button{padding:7px 12px}.nav-in{gap:8px}}
+/* ---- embed: the iframe is just the phone ---- */
+html.embed,html.embed body{background:transparent!important;overflow:hidden}
+html.embed .nav,html.embed #view-over,html.embed .p3,html.embed .drawer-btn{display:none!important}
+html.embed #view-proto{display:block}
+html.embed .stage{display:block;min-height:0}
+html.embed .phonecol{padding:0;display:block}
+html.embed .phone{box-shadow:none}
+</style>
+<script>
+var EMBED = /[?&]embed/.test(location.search);
+if(EMBED) document.documentElement.classList.add('embed');
+var FLOW = (location.search.match(/[?&]flow=(date|friend)/)||[])[1] || 'date';
+</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="bumpyMark" viewBox="0 0 76 34"><path fill="currentColor" d="M9.02195 13.5744C8.51493 13.5744 8.11465 13.7335 7.80333 14.0518C7.492 14.37 7.34078 14.7767 7.34078 15.2806C7.34078 15.7845 7.492 16.1823 7.80333 16.4917C8.11465 16.8011 8.52383 16.9514 9.02195 16.9514C9.85808 16.9514 10.5786 17.252 11.1746 17.8355C11.7705 18.4278 12.0641 19.1439 12.0641 19.9749C12.0641 20.8059 11.7616 21.5219 11.1746 22.1054C10.5786 22.6889 9.85808 22.9806 9.02195 22.9806C8.18581 22.9806 7.46531 22.6889 6.87824 22.1054C6.29117 21.5219 5.99763 20.8147 5.99763 19.9749V10.1708C5.99763 9.66693 5.83752 9.26912 5.5173 8.9597C5.19707 8.65029 4.7879 8.5 4.28088 8.5C3.79165 8.5 3.39138 8.65913 3.07115 8.97738C2.75093 9.29564 2.59082 9.69346 2.59082 10.1797V19.9837C2.59082 21.7695 3.21347 23.2812 4.44989 24.51C5.6952 25.7476 7.20736 26.3576 9.00416 26.3576C10.801 26.3576 12.322 25.7388 13.5762 24.51C14.8304 23.2723 15.4531 21.7695 15.4531 19.9837C15.4531 18.1803 14.8304 16.6685 13.594 15.4309C12.3665 14.1932 10.8365 13.5744 9.02195 13.5744Z"/><path fill="currentColor" d="M25.9941 13.627C25.487 13.627 25.0779 13.7772 24.7576 14.0867C24.4374 14.3961 24.2773 14.8027 24.2773 15.2978V20.9556C24.2773 21.5214 24.0816 21.9988 23.6991 22.3966C23.3166 22.7856 22.8363 22.9889 22.267 22.9889C21.6977 22.9889 21.2174 22.7944 20.8171 22.3966C20.4257 22.0077 20.2212 21.5214 20.2212 20.9556V15.3508C20.2212 14.8469 20.061 14.4403 19.7408 14.122C19.4206 13.8038 19.0114 13.6446 18.5044 13.6446C17.9974 13.6446 17.5971 13.8038 17.2858 14.122C16.9745 14.4403 16.8232 14.8469 16.8232 15.3508V20.9556C16.8232 22.4939 17.3392 23.7757 18.3799 24.8101C19.4206 25.8444 20.7104 26.3571 22.2581 26.3571C23.7881 26.3571 25.069 25.8355 26.1097 24.7924C27.1504 23.7492 27.6663 22.4674 27.6663 20.9556V15.2978C27.6663 14.7939 27.5151 14.3961 27.2038 14.0867C26.9014 13.7772 26.4922 13.627 25.9941 13.627Z"/><path fill="currentColor" d="M54.7603 13.627C52.9457 13.627 51.4246 14.2369 50.1882 15.4658C48.9518 16.6946 48.3381 18.2063 48.3381 20.0097V28.3904C48.0445 28.2932 47.7777 28.1341 47.5464 27.9042C47.155 27.5152 46.9504 27.029 46.9504 26.4632V19.0108C46.9504 17.4902 46.4345 16.2172 45.3938 15.1829C44.3531 14.1485 43.0722 13.6358 41.5423 13.6358C40.1991 13.6358 39.025 14.0601 38.0198 14.9088C36.9969 14.0601 35.8227 13.6358 34.4974 13.6358C32.9674 13.6358 31.6776 14.1485 30.6369 15.1829C29.5873 16.2172 29.0625 17.4902 29.0625 19.0108V24.6863C29.0625 25.1902 29.2226 25.588 29.5428 25.8974C29.8631 26.2069 30.2722 26.3571 30.7792 26.3571C31.2863 26.3571 31.6865 26.2069 31.9979 25.8974C32.3092 25.588 32.4604 25.1814 32.4604 24.6863V19.0108C32.4604 18.445 32.6561 17.9676 33.0564 17.5875C33.4478 17.2073 33.937 17.0128 34.5063 17.0128C35.0578 17.0128 35.5381 17.2073 35.9384 17.6051C36.3386 17.9941 36.5432 18.4715 36.5432 19.0196V24.6951C36.5432 25.199 36.6945 25.5969 37.0058 25.9063C37.3171 26.2157 37.7263 26.366 38.2244 26.366C38.7225 26.366 39.1406 26.2157 39.4608 25.9063C39.781 25.5969 39.9411 25.1902 39.9411 24.6951V17.7908C40.3414 17.278 40.884 17.0128 41.5511 17.0128C42.1026 17.0128 42.583 17.2073 42.9744 17.6051C43.3657 17.9941 43.5703 18.4715 43.5703 19.0196V26.4721C43.5703 27.9926 44.0951 29.2656 45.1447 30.3088C46.1944 31.352 47.4841 31.8736 49.0052 31.8736H49.103C50.1704 31.9001 51.1133 31.4581 51.5225 30.6978C51.6203 30.5121 51.736 30.2204 51.7449 29.8049V20.0009C51.7449 19.1699 52.0384 18.4627 52.6255 17.8703C53.2125 17.2869 53.9242 16.9951 54.7692 16.9951C55.6053 16.9951 56.3258 17.2869 56.9218 17.8703C57.5178 18.4538 57.8113 19.161 57.8113 20.0009C57.8113 20.8319 57.5089 21.548 56.9218 22.1403C56.3258 22.7326 55.6053 23.0243 54.7692 23.0243C54.2622 23.0243 53.8619 23.1746 53.5506 23.484C53.2392 23.7934 53.088 24.2001 53.088 24.6951C53.088 25.199 53.2392 25.6057 53.5506 25.924C53.8619 26.2422 54.2711 26.4013 54.7692 26.4013C56.5838 26.4013 58.1048 25.7825 59.3501 24.5537C60.5954 23.316 61.2092 21.8043 61.2092 20.0009C61.2092 18.1974 60.5865 16.6857 59.3501 15.4569C58.1048 14.2369 56.5749 13.627 54.7603 13.627Z"/><path fill="currentColor" d="M72.9509 14.0876C72.6395 13.7781 72.2304 13.6279 71.7322 13.6279C71.2252 13.6279 70.816 13.7781 70.4958 14.0876C70.1756 14.397 70.0155 14.8036 70.0155 15.2987V20.9566C70.0155 21.5223 69.8198 21.9997 69.4373 22.3975C69.0548 22.7865 68.5745 22.9899 68.0052 22.9899C67.4359 22.9899 66.9556 22.7954 66.5553 22.3975C66.1639 22.0086 65.9593 21.5223 65.9593 20.9566V15.2987C65.9593 14.1848 65.3901 13.619 64.2515 13.619C63.7445 13.619 63.3442 13.7693 63.0329 14.0787C62.7215 14.3881 62.5703 14.7948 62.5703 15.2899V20.9477C62.5703 22.4859 63.0862 23.7678 64.1269 24.8021C65.1677 25.8365 66.4575 26.3492 68.0052 26.3492C68.7079 26.3492 69.3839 26.2254 70.0155 25.9779V26.4553C70.0155 27.0034 69.8109 27.4808 69.4106 27.8786C69.0103 28.2764 68.53 28.4797 67.9785 28.4797H64.9453C64.4383 28.4797 64.0291 28.6389 63.7089 28.9571C63.3887 29.2754 63.2285 29.682 63.2285 30.1859C63.2285 30.6898 63.3887 31.0877 63.7089 31.3971C64.0291 31.7065 64.4383 31.8568 64.9453 31.8568H67.9785C69.5085 31.8568 70.7894 31.3352 71.839 30.292C72.8886 29.2489 73.4134 27.967 73.4134 26.4553V15.2987C73.4134 14.8036 73.2622 14.397 72.9509 14.0876Z"/><path fill="currentColor" d="M56.1451 3.5961C55.6321 0.728519 52.4021 -0.560492 50.0651 1.10215C49.5141 1.49445 49.0676 2.05489 48.5926 2.52193C48.1176 2.04555 47.6711 1.49445 47.1201 1.10215C44.7831 -0.569833 41.5436 0.728519 41.0401 3.5961C40.6601 5.71643 41.1826 7.67797 42.6931 9.21918C43.8521 10.3961 47.8326 14.0296 48.5926 14.7302C49.3526 14.0296 53.3331 10.3961 54.4921 9.21918C56.0026 7.67797 56.5251 5.71643 56.1451 3.5961Z"/></symbol>
+  <symbol id="avaArt" viewBox="0 0 120 150"><circle cx="60" cy="58" r="24" fill="#3FBFD4"/><path d="M14 150c2-34 22-52 46-52s44 18 46 52z" fill="#3FBFD4"/><circle cx="60" cy="58" r="24" fill="url(#avaG)" opacity=".5"/><defs><linearGradient id="avaG" x1="0" x2="1"><stop offset="0" stop-color="#4FD1D9"/><stop offset="1" stop-color="#2B9FC9"/></linearGradient></defs></symbol>
+</svg>
+
+<div class="nav">
+  <div class="nav-in">
+    <div class="nav-brand">
+      <span class="mk"><svg viewBox="0 0 76 34" aria-label="Bumpy"><use href="#bumpyMark"/></svg></span>
+      <i class="sep"></i>
+      <b>Search to Gold</b><span>· Bumpy</span>
+    </div>
+    <div class="nav-tools">
+      <div class="seg" data-hseg="lang"><button data-hlang="en" class="on">EN</button><button data-hlang="es">ES</button><button data-hlang="pt">PT</button></div>
+      <div class="seg" data-hseg="theme"><button data-htheme="light" class="on">Light</button><button data-htheme="dark">Dark</button></div>
+      <button class="hdemo-btn" data-hdemo><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg>30-sec walkthrough</button>
+    </div>
+    <div class="nav-links">
+      <button class="on" data-view="over">Overview</button>
+      <button data-view="proto">Prototype</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= OVERVIEW ======================= -->
+<div class="view on" id="view-over">
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Apple Ads × Onboarding · October 2026</div>
+    <h1>Bumpy</h1>
+    <p class="lede">Some people search for a date, others for new friends. Show each of them a flow that answers the search, and turn more of them into Gold subscribers.</p>
+    <div class="meta">Prepared by <b>Adapty</b> · based on your live iOS flow, your App Store listing, bumpy.app and your Apple Ads keyword data</div>
+    <div class="herobtns"><div class="qr"><img src="img/qr.svg?v=1" alt="QR code for the prototype"><span><b>Open it on your phone</b>Scan to try both flows in your hand.</span></div><button class="ghostbtn" data-demo><span class="pl"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></span>Watch the 30-second walkthrough</button></div>
+    <div class="stats">
+      <div class="stat"><b>30,000+</b><span>apps run subscriptions<br>on Adapty</span></div>
+      <div class="stat"><b>2</b><span>keyword flows, with<br>5 ideas built into each</span></div>
+      <div class="stat"><b>0</b><span>design changes<br>to your art direction</span></div>
+    </div>
+    <div class="fb fb2">
+      <div class="fb-col">
+        <div class="fb-k">Built in Adapty Flow Builder</div>
+        <div class="fb-i"><span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><p><b>Millions of dollars</b> in subscription revenue pass through Flow Builder every month.</p></div>
+        <div class="fb-i"><span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><p><b>Nearly 500 apps</b> build their paywalls and onboarding in it.</p></div>
+      </div>
+      <div class="fb-col asa-col">
+        <div class="fb-k">Run with Adapty Ads Manager</div>
+        <div class="fb-i"><span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><p>Trusted by teams managing <b>$100M+ in Apple Ads spend</b>.</p></div>
+        <div class="fb-i"><span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><p><b>40 Bumpy searches</b> reviewed in the US, 14 July – 13 October 2026.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="asa">
+  <div class="wrap">
+    <div class="asa-card">
+      <div>
+        <div class="sec-k">New · Apple Ads × your flow</div>
+        <h2>Show every search <em>its own flow</em>.</h2>
+        <p>Someone who searched “international dating” and someone who searched “make new friends” want different things. Today both answer the same questions in the same order, see “Get married” as the first goal, and reach the same Gold paywall. <b>Adapty Ads Manager passes the Apple Ads keyword into your flow</b>, so each search lands on its own version, without an app release.</p>
+        <div class="asa-btns">
+          <button class="asa-go" data-scroll="keywords">See all 40 searches <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></button>
+          <button class="asa-alt" data-view="proto">See both keyword flows <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+      <div class="asa-stats">
+        <div><b class="r">0.4%</b><span>your share of “international dating”, a 5.5-popularity search</span></div>
+        <div><b class="g">72%</b><span>your share of “hihi app”, and 50% of “interpals”: pen-pal searches you already win</span></div>
+        <div><b class="p">&lt;1%</b><span>of “make new friends”, popularity 8.0, the biggest friends search you show up on</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="wrap">
+    <div class="sec-k">What this is</div>
+    <h2>We searched the way a new user does, then rebuilt what happens after the tap.</h2>
+    <p class="body">Adapty powers subscriptions for <b>30,000+ apps</b>, so we get to see what moves conversion and ARPU across the market rather than inside one app. For Bumpy we looked at two things. First, your app: we installed it and walked every step from your name to Gold. Second, your Apple Ads: which searches you show up on, which you win, and where you barely register.</p>
+    <p class="body">What follows is five ideas for the flow you have, and two keyword flows that show what happens when each search gets its own version. Every one is a hypothesis you can A/B test, and all of it is clickable. <b>The prototype uses your design: your teal gradient, white cards, emoji pills, intro video and Gold paywall.</b></p>
+    <div class="notes">
+      <div class="note"><h4>We did not redesign your app</h4><p>Every screen uses your own parts. Only the sequence and the words around them change, and every line comes from your own listing, site or screens.</p></div>
+      <div class="note"><h4>You may have tested some of this</h4><p>We cannot see your experiment history. If you have already run one of these, tell us what you found and we will go deeper on the rest.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="sec">
+  <div class="wrap">
+    <div class="sec-k">The five ideas</div>
+    <h2>Ranked by what we would test first.</h2>
+    <p class="body">Each one opens that screen in both keyword flows.</p>
+
+    <div class="ideas">
+      <button class="idea" data-jump="notify">
+        <span class="no">01</span>
+        <span>
+          <h3>Ask for permissions after the paywall</h3>
+          <p>After the photo step, a new user meets a tracking prompt, a notifications prompt and your intro video before Gold appears. Two of those are requests. Move both behind the paywall and the price arrives while the profile they just built is still fresh.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–15%</b><span>to purchase</span></span>
+      </button>
+      <button class="idea" data-jump="profile">
+        <span class="no">02</span>
+        <span>
+          <h3>Show them the profile they just built</h3>
+          <p>Name, age, who they want to meet, their goal, up to 15 interests and a photo. That is a whole profile, and none of it is shown back before the price. A preview card makes the effort feel finished, and the search decides which of your own numbers sits under it.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–15%</b><span>to purchase</span></span>
+      </button>
+      <button class="idea" data-jump="paywall">
+        <span class="no">03</span>
+        <span>
+          <h3>Put your own numbers next to the price</h3>
+          <p>4.6 from 500k+ reviews, 35M+ downloads, 90% photo-verified, chat in 100+ languages across 150+ countries. All of it is on bumpy.app or your listing, and none of it is in the flow. Each keyword flow leads with the numbers that answer its search.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–15%</b><span>to purchase</span></span>
+      </button>
+      <button class="idea" data-jump="paywall">
+        <span class="no">04</span>
+        <span>
+          <h3>Let them see all four plans</h3>
+          <p>1 week at 5,99 € is preselected, 1 month is half in view, and 6 months at 39,99 € (your own “Save 73%”) sits off-screen to the right until someone swipes. Show all four at once, with what each one costs per week.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>ARPU +10–15%</b><span>longer-plan mix</span></span>
+      </button>
+      <button class="idea" data-jump="offer">
+        <span class="no">05</span>
+        <span>
+          <h3>A second chance on close, on a plan you already sell</h3>
+          <p>When someone taps the X, offer 6 months as what it really is: 1,54 € a week against 5,99 €. It is your own price, so there is no invented discount and no countdown.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>ARPU +10–15%</b><span>second chance</span></span>
+      </button>
+    </div>
+
+    <div class="band">
+      <div class="txt">
+        <div class="lab">Potential outcome</div>
+        <p>Run together, these five move the same funnel at three points: what stands between the last question and the price, what the paywall shows, and what happens when someone says no.</p>
+        <p class="band-kw"><b>On top of that,</b> Adapty’s Apple Ads research puts keyword-matched paywalls at <b>+30–50% conversion</b> over one paywall for every search.</p>
+      </div>
+      <div class="nums">
+        <div><b>+25%</b><span>CR to purchase</span></div>
+        <div><b>+20%</b><span>ARPU</span></div>
+      </div>
+    </div>
+
+    <div class="kwsec">
+      <div class="sec-k">Two keywords, two flows</div>
+      <h2>The same app, answering two different searches.</h2>
+      <p class="body">The five ideas sit underneath both. On four screens, what the user sees depends on what they typed into the App Store.</p>
+      <div class="cmpt">
+        <div class="cmpt-h"><span>Screen</span><span class="f"><i class="pdot d"></i>“international dating”</span><span class="b"><i class="pdot f"></i>“make new friends”</span></div>
+        <button class="cmpt-r" data-kwjump="welcome"><span class="s">Welcome</span><span>“Find your international soulmate”, the line on your homepage, with 35M+ downloads and your 4.6</span><span>“Meet new people &amp; make friends”, your own App Store subtitle, with chat translated automatically</span><i>→</i></button>
+        <button class="cmpt-r" data-kwjump="goal"><span class="s">Goal</span><span>“Find a relationship” already picked, your five goals in your order</span><span>“Chat and meet friends” moved to the top and already picked</span><i>→</i></button>
+        <button class="cmpt-r" data-kwjump="profile"><span class="s">Profile preview</span><span>70% looking for a serious relationship, 60% women</span><span>100+ languages translated, people from 150+ countries</span><i>→</i></button>
+        <button class="cmpt-r" data-kwjump="paywall"><span class="s">Paywall</span><span>4.6 from 500k+ reviews, 35M+ downloads and 90% photo-verified above the plans</span><span>100+ languages, 150+ countries and your 4.6 above the plans</span><i>→</i></button>
+      </div>
+    </div>
+
+    <div class="kwall" id="keywords">
+      <div class="sec-k">All 40 searches</div>
+      <h2>Where you win, where you barely register, and what to look at.</h2>
+      <p class="body">Every search Bumpy showed up on in the US between 14 July and 13 October 2026, with your share of voice and the keyword flow it would land in.</p>
+      <div class="kwt">
+        <div class="kwt-g">
+          <div class="kwt-gh"><span class="tagk win">Where you win</span><h4>Your brand</h4><span>Defended. Keep it.</span></div>
+          <div class="kr hd"><span>Search</span><span>Popularity</span><span>Bumpy share of voice</span><span>Lands in</span></div>
+          <div class="kr"><span class="k">bumpy</span><span class="pop">6.6</span><span class="sov"><span class="b"><i style="width:77%"></i></span><em>77%</em></span><span class="who n">Today’s flow</span></div>
+          <div class="kr"><span class="k">bumpy – international dating</span><span class="pop">—</span><span class="sov"><span class="b"><i style="width:100%"></i></span><em>~100%</em></span><span class="who d"><i class="pdot d"></i>Dating</span></div>
+          <div class="kr"><span class="k">bumpy.app · bumpy.dating</span><span class="pop">—</span><span class="sov"><span class="b"><i style="width:99%"></i></span><em>99–100%</em></span><span class="who n">Today’s flow</span></div>
+        </div>
+        <div class="kwt-g">
+          <div class="kwt-gh"><span class="tagk win">Where you win</span><h4>Pen-pal and niche searches</h4><span>Low volume, high share. Most of these people want friends or language practice, not a date.</span></div>
+          <div class="kr"><span class="k">hihi app<small>pen-pal app</small></span><span class="pop">—</span><span class="sov"><span class="b"><i style="width:72%"></i></span><em>72%</em></span><span class="who f"><i class="pdot f"></i>Friends</span></div>
+          <div class="kr"><span class="k">foreigners</span><span class="pop">0.5</span><span class="sov"><span class="b"><i style="width:56%"></i></span><em>56%</em></span><span class="who f"><i class="pdot f"></i>Friends</span></div>
+          <div class="kr"><span class="k">interpals<small>pen-pal app</small></span><span class="pop">—</span><span class="sov"><span class="b"><i style="width:50%"></i></span><em>50%</em></span><span class="who f"><i class="pdot f"></i>Friends</span></div>
+          <div class="kr"><span class="k">eurodate<small>dating app</small></span><span class="pop">—</span><span class="sov"><span class="b"><i style="width:48%"></i></span><em>48%</em></span><span class="who d"><i class="pdot d"></i>Dating</span></div>
+          <div class="kr"><span class="k">worldtalk<small>language-exchange app</small></span><span class="pop">—</span><span class="sov"><span class="b"><i style="width:36%"></i></span><em>36%</em></span><span class="who f"><i class="pdot f"></i>Friends</span></div>
+          <div class="kr"><span class="k">flindra<small>dating app</small></span><span class="pop">—</span><span class="sov"><span class="b"><i style="width:32%"></i></span><em>32%</em></span><span class="who d"><i class="pdot d"></i>Dating</span></div>
+          <div class="kr"><span class="k">meeff<small>language-exchange app</small></span><span class="pop">—</span><span class="sov"><span class="b"><i style="width:30%"></i></span><em>30%</em></span><span class="who f"><i class="pdot f"></i>Friends</span></div>
+          <div class="kr"><span class="k">bammby<small>dating app</small></span><span class="pop">—</span><span class="sov"><span class="b"><i style="width:35%"></i></span><em>17–35%</em></span><span class="who d"><i class="pdot d"></i>Dating</span></div>
+          <div class="kr"><span class="k">foreign</span><span class="pop">4.8</span><span class="sov"><span class="b"><i style="width:25%"></i></span><em>25%</em></span><span class="who f"><i class="pdot f"></i>Friends</span></div>
+          <div class="kr"><span class="k">sharky<small>dating app</small></span><span class="pop">—</span><span class="sov"><span class="b"><i style="width:21%"></i></span><em>21%</em></span><span class="who d"><i class="pdot d"></i>Dating</span></div>
+          <div class="kr"><span class="k">global video chat</span><span class="pop">1.5</span><span class="sov"><span class="b"><i style="width:19%"></i></span><em>19%</em></span><span class="who f"><i class="pdot f"></i>Friends</span></div>
+          <div class="kr"><span class="k">global friends</span><span class="pop">1.1</span><span class="sov lo"><span class="b"><i style="width:11%"></i></span><em>11%</em></span><span class="who f"><i class="pdot f"></i>Friends</span></div>
+        </div>
+        <div class="kwt-g">
+          <div class="kwt-gh"><span class="tagk lose">Where you barely register</span><h4>The biggest generic searches on your list</h4><span>The highest popularity, at under 4% share. The two flows are built for these.</span></div>
+          <div class="kr"><span class="k">international</span><span class="pop">13.2</span><span class="sov zero"><span class="b"><i style="width:1.3%"></i></span><em>1.3%</em></span><span class="who d"><i class="pdot d"></i>Dating</span></div>
+          <div class="kr"><span class="k">make new friends</span><span class="pop">8.0</span><span class="sov zero"><span class="b"><i style="width:1%"></i></span><em>&lt;1%</em></span><span class="who f"><i class="pdot f"></i>Friends</span></div>
+          <div class="kr"><span class="k">meet friends</span><span class="pop">5.7</span><span class="sov zero"><span class="b"><i style="width:1%"></i></span><em>&lt;1%</em></span><span class="who f"><i class="pdot f"></i>Friends</span></div>
+          <div class="kr"><span class="k">international dating</span><span class="pop">5.5</span><span class="sov zero"><span class="b"><i style="width:.4%"></i></span><em>0.4%</em></span><span class="who d"><i class="pdot d"></i>Dating</span></div>
+          <div class="kr"><span class="k">meet global</span><span class="pop">3.6</span><span class="sov zero"><span class="b"><i style="width:3.5%"></i></span><em>3.5%</em></span><span class="who f"><i class="pdot f"></i>Friends</span></div>
+          <div class="kr"><span class="k">global dating app</span><span class="pop">3.0</span><span class="sov zero"><span class="b"><i style="width:.8%"></i></span><em>0.8%</em></span><span class="who d"><i class="pdot d"></i>Dating</span></div>
+          <div class="kr"><span class="k">tandem<small>language-exchange app</small></span><span class="pop">—</span><span class="sov lo"><span class="b"><i style="width:8%"></i></span><em>8%</em></span><span class="who f"><i class="pdot f"></i>Friends</span></div>
+          <div class="kr"><span class="k">hellotalk<small>language-exchange app</small></span><span class="pop">—</span><span class="sov zero"><span class="b"><i style="width:1.4%"></i></span><em>1.4%</em></span><span class="who f"><i class="pdot f"></i>Friends</span></div>
+        </div>
+        <div class="kwt-g">
+          <div class="kwt-gh"><span class="tagk lose">Where you barely register</span><h4>Other dating apps</h4><span>Small share on most dating brands you bid on.</span></div>
+          <div class="kr"><span class="k">bemba</span><span class="pop">—</span><span class="sov lo"><span class="b"><i style="width:15%"></i></span><em>15%</em></span><span class="who d"><i class="pdot d"></i>Dating</span></div>
+          <div class="kr"><span class="k">amok</span><span class="pop">—</span><span class="sov lo"><span class="b"><i style="width:12%"></i></span><em>12%</em></span><span class="who d"><i class="pdot d"></i>Dating</span></div>
+          <div class="kr"><span class="k">kasual</span><span class="pop">—</span><span class="sov lo"><span class="b"><i style="width:5.5%"></i></span><em>5.5%</em></span><span class="who d"><i class="pdot d"></i>Dating</span></div>
+          <div class="kr"><span class="k">pairs</span><span class="pop">—</span><span class="sov zero"><span class="b"><i style="width:3%"></i></span><em>3%</em></span><span class="who d"><i class="pdot d"></i>Dating</span></div>
+          <div class="kr"><span class="k">bumble · www.bumble.com</span><span class="pop">—</span><span class="sov zero"><span class="b"><i style="width:3.6%"></i></span><em>0.2–3.6%</em></span><span class="who d"><i class="pdot d"></i>Dating</span></div>
+          <div class="kr"><span class="k">azar · pure</span><span class="pop">—</span><span class="sov zero"><span class="b"><i style="width:.8%"></i></span><em>0.8%</em></span><span class="who d"><i class="pdot d"></i>Dating</span></div>
+          <div class="kr"><span class="k">duet</span><span class="pop">—</span><span class="sov zero"><span class="b"><i style="width:.1%"></i></span><em>0.1%</em></span><span class="who d"><i class="pdot d"></i>Dating</span></div>
+        </div>
+        <div class="kwt-g">
+          <div class="kwt-gh"><span class="tagk leak">Worth a second look</span><h4>Searches that may not be looking for Bumpy</h4><span>Worth checking before more spend goes there.</span></div>
+          <div class="kr"><span class="k">same<small>unclear match: worth checking what this search is for</small></span><span class="pop">21.7</span><span class="sov lo"><span class="b"><i style="width:1.9%"></i></span><em>1.9%</em></span><span class="who n">—</span></div>
+          <div class="kr"><span class="k">whop<small>unclear match for a dating app</small></span><span class="pop">—</span><span class="sov lo"><span class="b"><i style="width:16%"></i></span><em>16%</em></span><span class="who n">—</span></div>
+          <div class="kr"><span class="k">交 · 随 · других · زبيب · ứng<small>queries in other scripts, from the US store</small></span><span class="pop">—</span><span class="sov lo"><span class="b"><i style="width:0"></i></span><em>—</em></span><span class="who n">Likely broad or Search Match</span></div>
+        </div>
+      </div>
+      <p class="asa-note">Apple Ads, US storefront, 14 July – 13 October 2026, via AppMagic. Popularity and share of voice from public observation of your ads, not from your account. A dash means we have no figure for that search.</p>
+
+      <div class="dos">
+        <div class="do"><div class="k f">FRIENDS FLOW</div><h4>Give the searches you already win the right first screen</h4><p>You win 50–72% of “interpals” and “hihi app” and 25–56% of “foreign” and “foreigners”. Those installs want friends and language practice, and today the first goal they see is “Get married”.</p></div>
+        <div class="do"><div class="k d">DATING FLOW</div><h4>Make the big dating searches count</h4><p>“international dating” and “global dating app” are where you barely register. A first screen about a partner, with your 4.6 and 90% photo-verified, gets more out of every install you do win there.</p></div>
+        <div class="do"><div class="k b">BOTH</div><h4>Look at broad and Search Match</h4><p>Queries in other scripts and “same” at 21.7 popularity do not read like searches for Bumpy. They point to broad or Search Match campaigns worth tightening.</p></div>
+      </div>
+    </div>
+
+    <div class="next">
+      <div class="sec-k">What happens next</div>
+      <h2>From first call to first test in two weeks.</h2>
+      <div class="next-steps">
+        <div><b>Day 1</b><h4>Spend follows intent</h4><p>Pen-pal and dating searches go into their own ad groups, and the stray queries come out of broad and Search Match.</p></div>
+        <div><b>Week 1</b><h4>Keyword flows live</h4><p>After a one-time SDK setup, dating and friends searches get their own first screen, goal order and paywall proof. No app release.</p></div>
+        <div><b>Week 2</b><h4>A/B tests running</h4><p>Every keyword measured on revenue, not installs, with tests running per keyword.</p></div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <div class="qr"><img src="img/qr.svg?v=1" alt="QR code for the prototype"><span><b>Or open it on your phone</b>Scan to try both flows in your hand.</span></div>
+      <button class="bigbtn" data-view="proto">Open both keyword flows <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="wrap">
+    Impact ranges are Adapty's expected effect from teardowns and A/B tests across subscription apps — not measured lift for Bumpy. Every price, rating and figure here and in the prototype comes from Bumpy's own App Store listing, bumpy.app and in-app screens; prices are the euro prices on your Gold paywall. Keyword data is from public observation of your Apple Ads in the US, not from your account.
+  </div>
+</div>
+</div><!-- /view-over -->
+
+<!-- ======================= PROTOTYPE ======================= -->
+<div class="view" id="view-proto">
+<div class="p3 side one" id="p3">
+  <div class="p3-stage" id="p3Stage">
+    <div class="p3-mtools">
+      <div class="seg" data-hseg="lang"><button data-hlang="en" class="on">EN</button><button data-hlang="es">ES</button><button data-hlang="pt">PT</button></div>
+      <div class="seg" data-hseg="theme"><button data-htheme="light" class="on">Light</button><button data-htheme="dark">Dark</button></div>
+      <button class="hdemo-btn" data-hdemo><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg>30-sec walkthrough</button>
+    </div>
+    <div class="p3-mtog" id="mtog"><button data-one="date" class="on">“international dating”</button><button data-one="friend">“make new friends”</button></div>
+    <div class="duo" id="duo">
+      <div class="kwcard date">
+        <div class="k">Apple Ads keyword</div>
+        <div class="q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span data-kwq="date">“international dating”</span></div>
+        <p>Someone looking for a partner abroad. A 5.5-popularity search where you hold 0.4% today.</p>
+        <span class="who">Try another dating search</span>
+        <div class="kwpick" data-pick="date"></div>
+      </div>
+      <div class="flow date show" data-flow="date">
+        <label class="kwpill date"><small>Searched</small><select data-sel="date" aria-label="Apple Ads keyword"></select><small>· Apple Ads</small></label>
+        <div class="pbox"><iframe src="?embed=1&amp;flow=date" title="Flow for the keyword international dating"></iframe></div>
+      </div>
+      <div class="flow friend" data-flow="friend">
+        <label class="kwpill friend"><small>Searched</small><select data-sel="friend" aria-label="Apple Ads keyword"></select><small>· Apple Ads</small></label>
+        <div class="pbox"><iframe src="?embed=1&amp;flow=friend" title="Flow for the keyword make new friends"></iframe></div>
+      </div>
+      <div class="kwcard friend">
+        <div class="k">Apple Ads keyword</div>
+        <div class="q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span data-kwq="friend">“make new friends”</span></div>
+        <p>Someone who wants friends or a pen pal abroad. Popularity 8.0, under 1% share today, while you already win half of “interpals”.</p>
+        <span class="who">Try another friends search</span>
+        <div class="kwpick" data-pick="friend"></div>
+      </div>
+    </div>
+    <div class="p3-bar" id="p3Bar">
+      <div class="steps" id="hSteps"></div>
+      <div class="hcap hidden" id="hCap"><p id="hCapT"></p><div class="bar"><i id="hProg"></i></div><button id="hStop">Stop</button></div>
+    </div>
+  </div>
+  <aside class="p3-panel"><div class="pn" id="hPanel"></div></aside>
+</div>
+<button class="drawer-btn" id="drawerBtn"><i></i>Ideas for this step</button>
+
+<!-- the phone each iframe renders (?embed=1&flow=date|friend) -->
+<div class="stage">
+  <div class="phonecol">
+    <div class="phone">
+      <div class="phone-in" id="phoneIn">
+        <div class="island"></div>
+        <div class="sbar" id="sbar">
+          <span>9:41</span>
+          <span class="glyphs">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5.5" width="3" height="5.5" rx="1"/><rect x="9" y="3" width="3" height="8" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+            <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.6 7.9a3.4 3.4 0 0 1 4.8 0L8 10.5Zm0-5.6a6.4 6.4 0 0 0-4.5 1.9L1.7 4.9a9 9 0 0 1 12.6 0l-1.8 1.9A6.4 6.4 0 0 0 8 4.9Z"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".6" y=".6" width="20" height="10.8" rx="3" stroke="currentColor" stroke-opacity=".5"/><rect x="2.2" y="2.2" width="16.5" height="7.6" rx="1.8" fill="currentColor"/><path d="M22.3 4.1v3.8a2 2 0 0 0 0-3.8Z" fill="currentColor" fill-opacity=".5"/></svg>
+          </span>
+        </div>
+        <div class="homebar" id="homebar"></div>
+        <div class="finger" id="finger"></div>
+        <div class="screenwrap">
+
+<!-- WELCOME (new: their gradient, wordmark and white button; copy from their listing and site, picked by keyword) -->
+<section class="scr scr--wel" data-id="welcome" data-light="1">
+  <div class="scr-top" style="padding-top:0"></div>
+  <div class="scr-body">
+    <div class="bp-welmark"><svg viewBox="0 0 76 34" aria-label="Bumpy"><use href="#bumpyMark"/></svg></div>
+    <h2 class="bp-welh" id="welH"></h2>
+    <p class="bp-wels" id="welS"></p>
+    <div class="bp-welproof" data-th="wel.proof"></div>
+  </div>
+  <div class="scr-foot"><button class="bp-btn" id="welGo" data-go="name" data-t="cont"></button></div>
+</section>
+
+<!-- NAME -->
+<section class="scr" data-id="name" data-light="1">
+  <div class="bp-prog"><i style="width:12.5%"></i></div>
+  <div class="scr-top">
+    <h2 class="bp-h" data-t="name.h"></h2>
+    <p class="bp-sub" data-t="name.sub"></p>
+  </div>
+  <div class="scr-body">
+    <input class="bp-field" id="nameIn" maxlength="20" autocomplete="off" spellcheck="false">
+    <a class="bp-tiplink" data-t="name.tips"></a>
+  </div>
+  <div class="scr-foot"><div class="bp-arrowrow"><button class="bp-arrow" id="nameBtn" data-go="dob" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M13 5l7 7-7 7"/></svg></button></div></div>
+</section>
+
+<!-- DATE OF BIRTH -->
+<section class="scr" data-id="dob" data-light="1">
+  <div class="bp-prog"><i style="width:25%"></i></div>
+  <div class="scr-top">
+    <h2 class="bp-h" data-t="dob.h"></h2>
+    <p class="bp-sub" data-t="dob.sub"></p>
+  </div>
+  <div class="scr-body">
+    <div class="bp-dob">
+      <div class="bp-dobbar"></div>
+      <div class="bp-wh m" id="whM"></div><div class="bp-wh d" id="whD"></div><div class="bp-wh y" id="whY"></div>
+    </div>
+  </div>
+  <div class="scr-foot"><div class="bp-arrowrow"><button class="bp-arrow" data-go="look" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M13 5l7 7-7 7"/></svg></button></div></div>
+</section>
+
+<!-- LOOKING FOR -->
+<section class="scr" data-id="look" data-light="1">
+  <div class="bp-prog"><i style="width:50%"></i></div>
+  <div class="scr-top">
+    <h2 class="bp-h" data-t="look.h"></h2>
+    <p class="bp-sub" data-t="look.sub"></p>
+  </div>
+  <div class="scr-body"><div class="bp-opts" id="lookList"></div></div>
+  <div class="scr-foot"></div>
+</section>
+
+<!-- GOAL -->
+<section class="scr" data-id="goal" data-light="1">
+  <div class="bp-prog"><i style="width:62.5%"></i></div>
+  <div class="scr-top">
+    <h2 class="bp-h" data-t="goal.h"></h2>
+    <p class="bp-sub" data-t="goal.sub"></p>
+  </div>
+  <div class="scr-body"><div class="bp-opts" id="goalList"></div><div style="height:16px"></div></div>
+  <div class="scr-foot" style="padding:0 0 10px"></div>
+</section>
+
+<!-- INTERESTS -->
+<section class="scr" data-id="interests" data-light="1">
+  <div class="bp-prog"><i style="width:75%"></i></div>
+  <div class="scr-top">
+    <h2 class="bp-h" data-t="int.h"></h2>
+    <p class="bp-sub" data-t="int.sub"></p>
+  </div>
+  <div class="scr-body" id="intBody"><div id="intList"></div><div style="height:18px"></div></div>
+  <div class="scr-foot"><div class="bp-ifoot"><button class="bp-skip" data-go="photo" data-t="int.skip"></button><button class="bp-savebtn" id="intSave" data-go="photo"></button></div></div>
+</section>
+
+<!-- PHOTO -->
+<section class="scr scr--photo" data-id="photo" data-light="1">
+  <div class="bp-prog"><i style="width:87.5%"></i></div>
+  <div class="scr-top">
+    <h2 class="bp-h" data-t="photo.h"></h2>
+    <p class="bp-sub" data-t="photo.sub"></p>
+  </div>
+  <div class="scr-body">
+    <button class="bp-photorow" id="photoBtn"><span id="photoTxt"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M4 12h16" id="photoIc"/></svg></button>
+    <div class="bp-photoprev" id="photoPrev"><svg class="bp-ava" viewBox="0 0 120 150" preserveAspectRatio="xMidYMax meet"><use href="#avaArt"/></svg></div>
+  </div>
+  <div class="scr-foot">
+    <div class="bp-arrowrow"><button class="bp-arrow" id="photoNext" data-go="profile" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M13 5l7 7-7 7"/></svg></button></div>
+    <div class="bp-tipsbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="2.5" y="4.5" width="17" height="14" rx="1"/><path d="M5 6.5h16.5v14H5" opacity=".6"/><path d="M4.5 16.5l4.5-5 3.5 3.5 2.5-2.5 3 4"/></svg><p><span data-t="photo.q"></span><br><a data-t="photo.tips"></a></p></div>
+  </div>
+</section>
+
+<!-- PROFILE PREVIEW -->
+<section class="scr" data-id="profile" data-light="1">
+  <div class="bp-prog"><i style="width:100%"></i></div>
+  <div class="scr-top">
+    <h2 class="bp-h" data-t="prof.h"></h2>
+    <p class="bp-sub" data-t="prof.sub"></p>
+  </div>
+  <div class="scr-body">
+    <div class="bp-pcard">
+      <div class="bp-pphoto"><svg class="bp-ava" viewBox="0 0 120 150" preserveAspectRatio="xMidYMax meet"><use href="#avaArt"/></svg><div class="bp-pname" id="pName"></div></div>
+      <div class="bp-pin">
+        <div class="bp-pgoal" id="pGoal"></div>
+        <div class="bp-plook" id="pLook"></div>
+        <div class="bp-pchips" id="pChips"></div>
+      </div>
+    </div>
+    <div id="pStats"></div>
+    <div style="height:12px"></div>
+  </div>
+  <div class="scr-foot"><button class="bp-btn" data-go="video" data-t="cont"></button></div>
+</section>
+
+<!-- INTRO VIDEO -->
+<section class="scr scr--video" data-id="video" data-light="1">
+  <div class="bp-vid"><img src="img/intro-moon.jpg" alt=""></div>
+  <div class="bp-vt">WELCOME TO BUMPY</div>
+  <button class="bp-sound" id="soundBtn" aria-label="Sound"><svg viewBox="0 0 24 24" id="soundIc"></svg></button>
+</section>
+
+<!-- PAYWALL -->
+<section class="scr scr--pay" data-id="paywall">
+  <div class="scr-top">
+    <div class="bp-gh"><button class="bp-x" id="payClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button><h3 data-t="pw.title"></h3></div>
+  </div>
+  <div class="scr-body">
+    <div class="bp-car" id="car">
+      <div class="bp-slide"><img src="img/ic-liked.png" alt=""><h2 data-t="pw.liked"></h2></div>
+      <div class="bp-slide"><img src="img/ic-viewed.png" alt=""><h2 data-t="pw.viewed"></h2></div>
+    </div>
+    <div class="bp-dots" id="carDots"><i class="on"></i><i></i></div>
+    <div class="bp-proof" id="proof"></div>
+    <div class="bp-plans" id="planList"></div>
+    <div style="height:8px"></div>
+  </div>
+  <div class="scr-foot">
+    <p class="bp-legal" data-th="pw.legal"></p>
+    <button class="bp-cont" id="payCta" data-t="cont"></button>
+  </div>
+</section>
+
+<!-- OFFER ON CLOSE -->
+<section class="scr scr--offer sheet" data-id="offer">
+  <div class="scr-top">
+    <div class="bp-gh"><button class="bp-x" id="offClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button><h3 data-t="pw.title"></h3></div>
+  </div>
+  <div class="scr-body">
+    <h2 class="bp-oh" data-t="of.h"></h2>
+    <div class="bp-ocard">
+      <div class="n">6</div><div class="u" data-t="pw.months"></div><div class="p">39,99 €</div>
+      <span class="sv" id="ofSave"></span>
+    </div>
+    <p class="bp-oline" data-th="of.line"></p>
+    <div class="bp-ofeat">
+      <div><img src="img/ic-liked.png" alt=""><span data-t="pw.liked"></span></div>
+      <div><img src="img/ic-viewed.png" alt=""><span data-t="pw.viewed"></span></div>
+      <div><span class="gl"><svg viewBox="0 0 24 24" fill="#F0506E"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.3 1 4.1 2.2h3c.8-1.2 2.1-2.2 4.1-2.2C21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z" transform="translate(0 -1)"/></svg></span><span data-t="of.feat"></span></div>
+    </div>
+    <div style="height:8px"></div>
+  </div>
+  <div class="scr-foot">
+    <p class="bp-legal" data-th="pw.legal"></p>
+    <button class="bp-cont" id="offerCta" data-t="of.cta"></button>
+  </div>
+</section>
+
+<!-- NOTIFICATIONS (moved past the paywall) -->
+<section class="scr" data-id="notify" data-light="1">
+  <div class="scr-body" style="padding:0">
+    <img class="bp-bell" src="img/bell.png" alt="">
+    <h2 class="bp-nh" data-t="nt.h"></h2>
+    <div class="bp-alertwrap">
+      <span class="bp-wave" style="right:-12px;top:-38px;transform:rotate(-8deg)">👋</span>
+      <div class="bp-alert">
+        <h4 data-t="nt.t"></h4>
+        <p data-t="nt.d"></p>
+        <div class="bt"><button data-go="welcome" id="ntNo" data-t="nt.no"></button><button data-go="welcome" data-t="nt.yes"></button></div>
+      </div>
+      <span class="bp-wave" style="left:-14px;bottom:-8px;transform:scaleX(-1) rotate(-8deg)">👋</span>
+    </div>
+  </div>
+</section>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div><!-- /view-proto -->
+
+<script>
+/* ================= copy, per language (phone screens only) ================= */
+var LANGS = ['en','es','pt'];
+var T = {
+ 'wel.proof':["<b>35M+</b> downloads · <b>4.6 ★</b> from 500k+ reviews","<b>35M+</b> descargas · <b>4,6 ★</b> en más de 500k reseñas","<b>35M+</b> downloads · <b>4,6 ★</b> em mais de 500 mil avaliações"],
+ 'st.150':  ["People from <b>150+ countries</b> are on Bumpy","En Bumpy hay gente de <b>más de 150 países</b>","No Bumpy há pessoas de <b>mais de 150 países</b>"],
+ 'st.ver':  ["<b>90%</b> of Bumpy users are photo-verified","El <b>90 %</b> de los usuarios de Bumpy está verificado con foto","<b>90%</b> dos usuários do Bumpy têm foto verificada"],
+ 'pf.lang': ["languages, translated","idiomas, traducidos","idiomas, traduzidos"],
+ 'pf.ctry': ["countries","países","países"],
+ 'name.h':  ["What is your name?","¿Cómo te llamas?","Qual é o seu nome?"],
+ 'name.sub':["This name will be seen by other users","Otros usuarios verán este nombre","Outros usuários verão este nome"],
+ 'name.tips':["See profile safety tips","Ver consejos de seguridad del perfil","Ver dicas de segurança do perfil"],
+ 'dob.h':   ["Enter your date of birth","Introduce tu fecha de nacimiento","Informe sua data de nascimento"],
+ 'dob.sub': ["Others will see only your age","Los demás solo verán tu edad","Os outros verão apenas sua idade"],
+ 'look.h':  ["Who are you looking for?","¿A quién buscas?","Quem você procura?"],
+ 'look.sub':["You'll only see ones that you choose","Solo verás a quienes elijas","Você verá apenas quem escolher"],
+ 'goal.h':  ["What is your goal?","¿Cuál es tu objetivo?","Qual é o seu objetivo?"],
+ 'goal.sub':["You can change your goal at any time","Puedes cambiar tu objetivo en cualquier momento","Você pode mudar seu objetivo a qualquer momento"],
+ 'int.h':   ["Your Interests","Tus intereses","Seus interesses"],
+ 'int.sub': ["Pick up to 15 things you love. It’ll help you match with people who love them too.","Elige hasta 15 cosas que te encantan. Te ayudará a conectar con quien también las ama.","Escolha até 15 coisas que você ama. Isso ajuda a dar match com quem também ama."],
+ 'int.more':["Show more","Ver más","Ver mais"],
+ 'int.skip':["Skip","Omitir","Pular"],
+ 'int.save':["Save {n}/15","Guardar {n}/15","Salvar {n}/15"],
+ 'photo.h': ["Add your first photo","Añade tu primera foto","Adicione sua primeira foto"],
+ 'photo.sub':["Pick a photo that shows who you are and what you love","Elige una foto que muestre quién eres y lo que te gusta","Escolha uma foto que mostre quem você é e o que você ama"],
+ 'photo.sel':["Select a photo","Seleccionar una foto","Selecionar uma foto"],
+ 'photo.ok':["Photo added","Foto añadida","Foto adicionada"],
+ 'photo.q': ["Unclear on what to upload?","¿No sabes qué subir?","Não sabe o que enviar?"],
+ 'photo.tips':["See photo tips","Ver consejos de fotos","Ver dicas de fotos"],
+ 'prof.h':  ["Your profile is ready","Tu perfil está listo","Seu perfil está pronto"],
+ 'prof.sub':["This is how others will see you","Así te verán los demás","É assim que os outros vão ver você"],
+ 'prof.look':["Looking for {x}","Busca {x}","Procura {x}"],
+ 'st.70':   ["<b>70%</b> of Bumpy users are looking for a serious relationship","El <b>70 %</b> de los usuarios de Bumpy busca una relación seria","<b>70%</b> dos usuários do Bumpy procuram um relacionamento sério"],
+ 'st.60':   ["<b>60%</b> of Bumpy users are women","El <b>60 %</b> de los usuarios de Bumpy son mujeres","<b>60%</b> dos usuários do Bumpy são mulheres"],
+ 'st.lang': ["Chat in <b>100+ languages</b> — messages are translated automatically","Chatea en <b>más de 100 idiomas</b>: los mensajes se traducen solos","Converse em <b>mais de 100 idiomas</b> — as mensagens são traduzidas automaticamente"],
+ 'cont':    ["Continue","Continuar","Continuar"],
+ 'pw.title':["Get Gold","Hazte Gold","Assine o Gold"],
+ 'pw.liked':["See who liked you","Mira a quién le gustas","Veja quem curtiu você"],
+ 'pw.viewed':["See who viewed you","Mira quién vio tu perfil","Veja quem visitou você"],
+ 'pw.pop':  ["MOST POPULAR","MÁS POPULAR","MAIS POPULAR"],
+ 'pw.week': ["week","semana","semana"],
+ 'pw.month':["month","mes","mês"],
+ 'pw.months':["months","meses","meses"],
+ 'pw.save': ["SAVE {p}%","AHORRA {p} %","POUPE {p}%"],
+ 'pw.pwk':  ["{p}/wk","{p}/sem.","{p}/sem."],
+ 'pw.legal':["By tapping “Continue”, you will be charged and your subscription will auto-renew unless canceled via App Store settings. You agree to our <u>Terms</u> and <u>Privacy Policy.</u>",
+             "Al tocar «Continuar», se te cobrará y tu suscripción se renovará automáticamente salvo que la canceles en los ajustes del App Store. Aceptas nuestros <u>Términos</u> y la <u>Política de privacidad.</u>",
+             "Ao tocar em “Continuar”, você será cobrado e sua assinatura será renovada automaticamente, a menos que seja cancelada nos ajustes da App Store. Você concorda com nossos <u>Termos</u> e a <u>Política de Privacidade.</u>"],
+ 'pf.rev':  ["500k+ reviews","500k+ reseñas","500 mil+ avaliações"],
+ 'pf.dl':   ["downloads","descargas","downloads"],
+ 'pf.ver':  ["photo-verified","verificados con foto","com foto verificada"],
+ 'of.h':    ["Gold for 1,54 € a week","Gold por 1,54 € a la semana","Gold por 1,54 € por semana"],
+ 'of.line': ["That’s <b>1,54 € a week</b> instead of 5,99 €","Son <b>1,54 € a la semana</b> en vez de 5,99 €","São <b>1,54 € por semana</b> em vez de 5,99 €"],
+ 'of.feat': ["Boosts, likes & more","Boosts, likes y más","Boosts, curtidas e mais"],
+ 'of.cta':  ["Get 6 months","Obtener 6 meses","Assinar 6 meses"],
+ 'nt.h':    ["Enable notifications","Activa las notificaciones","Ative as notificações"],
+ 'nt.t':    ["Don't miss new Bumps","No te pierdas ningún Bump","Não perca nenhum Bump"],
+ 'nt.d':    ["Get notified when someone likes or messages you.","Recibe un aviso cuando alguien te dé like o te escriba.","Seja avisado quando alguém curtir você ou mandar mensagem."],
+ 'nt.no':   ["Not now","Ahora no","Agora não"],
+ 'nt.yes':  ["Notify me","Avisarme","Me avise"]
+};
+var LOOK = [
+  {k:'men',   l:['Men','Hombres','Homens'],   x:['men','hombres','homens']},
+  {k:'women', l:['Women','Mujeres','Mulheres'], x:['women','mujeres','mulheres']},
+  {k:'both',  l:['Both','Ambos','Ambos'],     x:['men and women','hombres y mujeres','homens e mulheres']}
+];
+var IC = {
+  married:'<svg viewBox="0 0 24 24"><circle cx="12" cy="14.5" r="6.6" fill="none" stroke="#F2C200" stroke-width="2.6"/><path d="M9.6 3.2h4.8l1.4 2.2L12 8.6 8.2 5.4z" fill="#1E9BE8"/></svg>',
+  relationship:'<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2.6 0 4.2 1.7 5.6 3.6C13.4 6.7 15 5 17.6 5 21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z" fill="#F0506E"/></svg>',
+  friends:'<svg viewBox="0 0 24 24"><path d="M3 4.5h18v12.5H8l-5 3.5z" fill="#9B3FE0"/><path d="M7 9h10M7 12.5h7" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>',
+  cultures:'<svg viewBox="0 0 24 24"><path d="M12 4 1.5 9 12 14l10.5-5z" fill="#F08A1A"/><path d="M6 11.3V16c0 1.6 2.7 3 6 3s6-1.4 6-3v-4.7L12 14z" fill="#F0A020"/></svg>',
+  travel:'<svg viewBox="0 0 24 24"><path d="M2.5 13.2l3.2-.4 3.6 2.4 4.2-1.1-4-6.2 2.4-.6 6.2 5 3.8-1c1-.3 1.8.8.8 1.4l-14.6 5.2c-.6.2-1.2 0-1.5-.5z" fill="#1AA6A6"/></svg>'
+};
+var GOALS = [
+  {k:'married',      h:['Get married','Casarme','Casar'], d:['Find a person to get married to and build a joint future','Encontrar a alguien con quien casarte y construir un futuro juntos','Encontrar alguém para casar e construir um futuro juntos']},
+  {k:'relationship', h:['Find a relationship','Encontrar pareja','Encontrar um relacionamento'], d:['Meet a soulmate, start a relationship, and then we\'ll see','Conocer a tu alma gemela, empezar una relación y luego ya veremos','Conhecer uma alma gêmea, começar um relacionamento e depois ver no que dá']},
+  {k:'friends',      h:['Chat and meet friends','Chatear y hacer amigos','Conversar e fazer amigos'], d:['Chat with people on different topics without serious plans yet','Charlar con gente sobre distintos temas, sin planes serios por ahora','Conversar com pessoas sobre vários assuntos, sem planos sérios por enquanto']},
+  {k:'cultures',     h:['Learn other cultures','Conocer otras culturas','Conhecer outras culturas'], d:['Learn something new about the world and practice languages','Aprender algo nuevo del mundo y practicar idiomas','Aprender algo novo sobre o mundo e praticar idiomas']},
+  {k:'travel',       h:['Travel the world','Viajar por el mundo','Viajar pelo mundo'], d:['Meet travel partners and share experiences','Conocer compañeros de viaje y compartir experiencias','Conhecer parceiros de viagem e compartilhar experiências']}
+];
+var GOALK={}; GOALS.forEach(function(g){ GOALK[g.k]=g; });
+var INTS = [
+  {s:['Going out','Salir','Sair'], i:[['go.bars','🍻','Bars','Bares','Bares'],['go.mus','🏺','Museums','Museos','Museus'],['go.cafe','☕️','Cafes','Cafeterías','Cafés'],['go.club','🪩','Nightclubs','Discotecas','Baladas'],['go.kar','🎤','Karaoke','Karaoke','Karaokê'],['go.thea','🎭','Theatres','Teatros','Teatros']]},
+  {s:['Travels','Viajes','Viagens'], i:[['tr.nat','🌳','Nature','Naturaleza','Natureza'],['tr.dom','🧳','Domestic','Nacionales','Nacionais'],['tr.sea','🌊','Seas','Mar','Mar'],['tr.mnt','⛰️','Mountains','Montañas','Montanhas'],['tr.att','🗼','Attractions','Atracciones','Atrações'],['tr.abr','✈️','Abroad','Extranjero','Exterior']]},
+  {s:['Sport','Deporte','Esporte'], i:[['sp.wl','🏋️','Weightlifting','Halterofilia','Musculação'],['sp.yoga','🧘','Yoga','Yoga','Ioga'],['sp.wp','🤽','Water polo','Waterpolo','Polo aquático'],['sp.fb','⚽️','Football','Fútbol','Futebol'],['sp.sh','🔫','Shooting sports','Tiro deportivo','Tiro esportivo'],['sp.wr','🤼','Wrestling','Lucha','Luta livre']]},
+  {s:['Music','Música','Música'], i:[['mu.ch','🎵','Chanson','Chanson','Chanson'],['mu.el','🎵','Electronic music','Música electrónica','Música eletrônica'],['mu.la','🎵','Latin American music','Música latinoamericana','Música latino-americana'],['mu.fu','🎵','Funk','Funk','Funk'],['mu.re','🎵','Reggae','Reggae','Reggae'],['mu.bl','🎵','Blues','Blues','Blues']]},
+  {s:['Food and drink','Comida y bebida','Comida e bebida'], i:[['fd.cof','☕️','Coffee','Café','Café'],['fd.home','🥘','Home food','Comida casera','Comida caseira'],['fd.grill','🍖','Grill','Parrilla','Churrasco'],['fd.veg','🥬','Vegetarian','Vegetariano','Vegetariano'],['fd.beer','🍺','Beer','Cerveza','Cerveja'],['fd.wh','🥃','Whiskey','Whisky','Uísque']]},
+  {s:['Hobbies','Aficiones','Hobbies'], i:[['hb.mus','🎵','Music','Música','Música'],['hb.shop','🛍️','Shopping','Compras','Compras'],['hb.prose','📝','Prose','Prosa','Prosa'],['hb.cook','🧑‍🍳','Cooking','Cocina','Culinária'],['hb.fish','🎣','Fishing','Pesca','Pesca'],['hb.read','📚','Reading','Lectura','Leitura']]},
+  {s:['Pets','Mascotas','Pets'], i:[['pt.tur','🐢','Turtles','Tortugas','Tartarugas'],['pt.cat','🐈','Cats','Gatos','Gatos'],['pt.fish','🐠','Fish','Peces','Peixes'],['pt.ham','🐹','Hamsters','Hámsters','Hamsters'],['pt.snk','🐍','Snakes','Serpientes','Cobras'],['pt.dog','🐕','Dogs','Perros','Cachorros']]}
+];
+var INTK={}; INTS.forEach(function(s){ s.i.forEach(function(x){ INTK[x[0]]=x; }); });
+/* their store prices, as shown on their own paywall — never converted */
+var PLANS = [
+  {k:'w', n:'1', u:'pw.week',   p:'5,99 €',  wk:null, sv:null, pop:true},
+  {k:'m', n:'1', u:'pw.month',  p:'9,99 €',  wk:'2,31 €', sv:59},
+  {k:'q', n:'3', u:'pw.months', p:'24,99 €', wk:'1,92 €', sv:66},
+  {k:'h', n:'6', u:'pw.months', p:'39,99 €', wk:'1,54 €', sv:73}
+];
+var LOCALE = {en:'en-GB', es:'es-ES', pt:'pt-BR'};
+var TODAY = new Date(2026,9,14);
+
+/* ================= the search that brought them in ================= */
+/* headline + line under it: only their own words, from the App Store listing (US and IE) and bumpy.app */
+var KW = {
+ intl:{f:'date',lab:'international dating',goal:'relationship',
+  h:["Find your international soulmate","Encuentra a tu alma gemela internacional","Encontre sua alma gêmea internacional"],
+  s:["Meet 35M+ singles globally. 90% of users are photo-verified.","Conoce a más de 35M de solteros de todo el mundo. El 90 % de los usuarios está verificado con foto.","Conheça mais de 35M de solteiros no mundo todo. 90% dos usuários têm foto verificada."]},
+ gdate:{f:'date',lab:'global dating app',goal:'relationship',
+  h:["A global dating app with real, verified people","Una app de citas global con personas reales y verificadas","Um app de namoro global com pessoas reais e verificadas"],
+  s:["Over 90% of users are photo-verified, so you don’t waste time on fake profiles.","Más del 90 % de los usuarios está verificado con foto: no pierdes el tiempo con perfiles falsos.","Mais de 90% dos usuários têm foto verificada, então você não perde tempo com perfis falsos."]},
+ intlw:{f:'date',lab:'international',goal:'relationship',
+  h:["Date across 150+ countries","Citas en más de 150 países","Namore em mais de 150 países"],
+  s:["Explore over 100 cultures and languages to find your match.","Explora más de 100 culturas e idiomas para encontrar a tu pareja.","Explore mais de 100 culturas e idiomas para encontrar seu par."]},
+ bumble:{f:'date',lab:'bumble',goal:'relationship',
+  h:["Meet singles who want something serious","Conoce a solteros que buscan algo serio","Conheça solteiros que querem algo sério"],
+  s:["70% of Bumpy users are looking for a serious relationship.","El 70 % de los usuarios de Bumpy busca una relación seria.","70% dos usuários do Bumpy procuram um relacionamento sério."]},
+ eurodate:{f:'date',lab:'eurodate',goal:'relationship',
+  h:["Choose the continents you want to meet people from","Elige los continentes donde quieres conocer gente","Escolha os continentes onde quer conhecer pessoas"],
+  s:["Europe, Asia, Africa, the Americas or Australia: you decide.","Europa, Asia, África, América o Australia: tú decides.","Europa, Ásia, África, Américas ou Austrália: você decide."]},
+ friends:{f:'friend',lab:'make new friends',goal:'friends',
+  h:["Meet new people & make friends","Conoce gente nueva y haz amigos","Conheça pessoas novas e faça amigos"],
+  s:["Chat with people from 150+ countries. Your messages are translated automatically.","Chatea con gente de más de 150 países. Tus mensajes se traducen solos.","Converse com pessoas de mais de 150 países. Suas mensagens são traduzidas automaticamente."]},
+ foreign:{f:'friend',lab:'foreign',goal:'friends',
+  h:["Make friends from other countries","Haz amigos de otros países","Faça amigos de outros países"],
+  s:["Chat in over 100 languages, no translator needed.","Chatea en más de 100 idiomas, sin traductor.","Converse em mais de 100 idiomas, sem tradutor."]},
+ interpals:{f:'friend',lab:'interpals',goal:'friends',
+  h:["Write to people all over the world","Escribe a gente de todo el mundo","Escreva para pessoas do mundo todo"],
+  s:["From Mexico to Japan, Africa to Australia. Bumpy translates every message.","De México a Japón, de África a Australia. Bumpy traduce cada mensaje.","Do México ao Japão, da África à Austrália. O Bumpy traduz cada mensagem."]},
+ tandem:{f:'friend',lab:'tandem',goal:'cultures',
+  h:["Learn other cultures and practice languages","Conoce otras culturas y practica idiomas","Conheça outras culturas e pratique idiomas"],
+  s:["Chat in over 100 languages, translated as you go.","Chatea en más de 100 idiomas, traducido al momento.","Converse em mais de 100 idiomas, traduzido na hora."]}
+};
+var KWS = {date:['intl','gdate','intlw','bumble','eurodate'], friend:['friends','foreign','interpals','tandem']};
+function goalOrder(){ if(FLOW!=='friend') return ['married','relationship','friends','cultures','travel'];
+  return S.goal==='cultures' ? ['cultures','friends','travel','relationship','married'] : ['friends','cultures','travel','relationship','married']; }
+
+/* ================= state ================= */
+function defaults(){ var fr=FLOW==='friend', k=(S&&S.kw)||(fr?'friends':'intl');
+  return { lang:S0.lang, theme:S0.theme, kw:k, name:'Alex', dob:[1995,5,12], look:fr?'both':'women', goal:KW[k].goal,
+  ints:fr?['tr.abr','hb.read','fd.cof','pt.cat']:['go.cafe','tr.abr','fd.cof','pt.dog'], photo:true, plan:'w', sound:true }; }
+var S0 = {lang:'en', theme:'light'};
+var S = defaults();
+function L(){ return LANGS.indexOf(S.lang); }
+function t(k,v){ var s=(T[k]||[k])[L()]; if(v) Object.keys(v).forEach(function(x){ s=s.split('{'+x+'}').join(v[x]); }); return s; }
+function age(){ var y=S.dob[0], m=S.dob[1], d=S.dob[2], a=TODAY.getFullYear()-y;
+  if(TODAY.getMonth()<m || (TODAY.getMonth()===m && TODAY.getDate()<d)) a--; return a; }
+function chipHTML(x){ return '<span class="em">'+x[1]+'</span><span>'+x[2+L()]+'</span>'; }
+
+/* ================= builders (re-run on language change) ================= */
+var rad='<span class="bp-rad"><i></i></span>';
+function buildLook(){ var g=document.getElementById('lookList'); g.innerHTML='';
+  LOOK.forEach(function(o){ var b=document.createElement('button'); b.className='bp-opt'; b.dataset.v=o.k;
+    b.innerHTML='<span class="tx">'+o.l[L()]+'</span>'+rad;
+    b.addEventListener('click',function(){ S.look=o.k; syncScreen(); autoNext('look','goal'); }); g.appendChild(b); }); }
+function buildGoals(){ var g=document.getElementById('goalList'); g.innerHTML='';
+  goalOrder().forEach(function(gk){ var o=GOALK[gk]; var b=document.createElement('button'); b.className='bp-opt bp-goal'; b.dataset.v=o.k;
+    b.innerHTML='<span class="tx"><b>'+IC[o.k]+o.h[L()]+'</b><span>'+o.d[L()]+'</span></span>'+rad;
+    b.addEventListener('click',function(){ S.goal=o.k; syncScreen(); autoNext('goal','interests'); }); g.appendChild(b); }); }
+function buildInts(){ var g=document.getElementById('intList'), h='';
+  INTS.forEach(function(s){ h+='<div class="bp-sec">'+s.s[L()]+'</div><div class="bp-chips">';
+    s.i.forEach(function(x){ h+='<button class="bp-chip" data-v="'+x[0]+'">'+chipHTML(x)+'</button>'; });
+    h+='</div><button class="bp-more">'+t('int.more')+'</button>'; });
+  g.innerHTML=h;
+  g.querySelectorAll('.bp-chip').forEach(function(b){ b.addEventListener('click',function(){ var k=b.dataset.v, i=S.ints.indexOf(k);
+    if(i>-1) S.ints.splice(i,1); else if(S.ints.length<15) S.ints.push(k); syncScreen(); }); }); }
+
+/* the three-column date wheel — a working control */
+var IH=31, WH={}, wT={};
+function buildWheels(){
+  var loc=LOCALE[S.lang], mf=new Intl.DateTimeFormat(loc,{month:'long'});
+  var months=[]; for(var m=0;m<12;m++){ var s=mf.format(new Date(2000,m,1)); months.push(s.charAt(0).toUpperCase()+s.slice(1)); }
+  var days=[]; for(var d=1;d<=31;d++) days.push(d);
+  var years=[]; for(var y=1950;y<=2008;y++) years.push(y);
+  WH={M:{el:document.getElementById('whM'),items:months,get:function(){return S.dob[1];},set:function(i){S.dob[1]=i;}},
+      D:{el:document.getElementById('whD'),items:days,get:function(){return S.dob[2]-1;},set:function(i){S.dob[2]=i+1;}},
+      Y:{el:document.getElementById('whY'),items:years,get:function(){return S.dob[0]-1950;},set:function(i){S.dob[0]=1950+i;}}};
+  Object.keys(WH).forEach(function(k){ var w=WH[k];
+    w.el.innerHTML='<div class="sp"></div>'+w.items.map(function(x){ return '<div class="it">'+x+'</div>'; }).join('')+'<div class="sp"></div>';
+    if(!w.el.dataset.bound){ w.el.dataset.bound=1;
+      w.el.addEventListener('scroll',function(){ var W=WH[k], idx=paintW(W); clearTimeout(wT[k]);
+        wT[k]=setTimeout(function(){ if(idx!==W.get()){ W.set(Math.min(W.items.length-1,idx)); syncScreen(true); } },120); }); }
+  });
+  setWheels();
+}
+function paintW(w){ var idx=Math.round(w.el.scrollTop/IH); w.el.querySelectorAll('.it').forEach(function(it,i){ var d=Math.abs(i-idx);
+  it.style.opacity=d===0?1:(d===1?.5:(d===2?.28:.14)); it.style.fontSize=d===0?'22px':''; it.style.fontWeight=d===0?'500':''; }); return idx; }
+function setWheels(){ Object.keys(WH).forEach(function(k){ var w=WH[k]; w.el.scrollTop=w.get()*IH; paintW(w); }); }
+
+function applyStatic(){
+  document.documentElement.lang=S.lang;
+  document.querySelectorAll('[data-t]').forEach(function(el){ el.textContent=t(el.dataset.t); });
+  document.querySelectorAll('[data-th]').forEach(function(el){ el.innerHTML=t(el.dataset.th); });
+  buildLook(); buildGoals(); buildInts(); buildWheels(); buildPlans();
+}
+function buildPlans(){ var g=document.getElementById('planList'); g.innerHTML='';
+  PLANS.forEach(function(p){ var b=document.createElement('button'); b.className='bp-plan'; b.dataset.v=p.k;
+    b.innerHTML=(p.pop?'<span class="bp-pop">'+t('pw.pop')+'</span>':'')+'<span class="n">'+p.n+'</span><span class="u">'+t(p.u)+'</span><span class="p">'+p.p+'</span>'
+      +(p.wk?'<span class="pw">'+t('pw.pwk',{p:p.wk})+'</span>':'')+(p.sv?'<span class="sv">'+t('pw.save',{p:p.sv})+'</span>':'');
+    b.addEventListener('click',function(){ S.plan=p.k; syncScreen(); }); g.appendChild(b); });
+  document.getElementById('ofSave').textContent=t('pw.save',{p:73});
+}
+
+/* ================= everything downstream reads S ================= */
+function syncScreen(fromWheel){
+  var li=L();
+  var ni=document.getElementById('nameIn'); if(document.activeElement!==ni) ni.value=S.name;
+  document.getElementById('nameBtn').disabled=!S.name.trim();
+  if(!fromWheel) setWheels();
+  document.querySelectorAll('#lookList .bp-opt').forEach(function(b){ b.classList.toggle('on', b.dataset.v===S.look); });
+  document.querySelectorAll('#goalList .bp-opt').forEach(function(b){ b.classList.toggle('on', b.dataset.v===S.goal); });
+  document.querySelectorAll('#intList .bp-chip').forEach(function(b){ b.classList.toggle('on', S.ints.indexOf(b.dataset.v)>-1); });
+  var sv=document.getElementById('intSave'); sv.textContent=t('int.save',{n:S.ints.length}); sv.classList.toggle('ready',S.ints.length>0);
+  document.getElementById('photoTxt').textContent= S.photo ? t('photo.ok') : t('photo.sel');
+  document.getElementById('photoBtn').classList.toggle('done',S.photo);
+  document.getElementById('photoIc').setAttribute('d', S.photo ? 'M5 12.5l4.5 4.5L19 7' : 'M12 4v16M4 12h16');
+  document.getElementById('photoPrev').classList.toggle('on',S.photo);
+  document.getElementById('photoNext').disabled=!S.photo;
+
+  /* profile preview: only their own answers */
+  var g=GOALK[S.goal], lk=LOOK.filter(function(o){ return o.k===S.look; })[0];
+  document.getElementById('pName').textContent=(S.name.trim()||'—')+', '+age();
+  document.getElementById('pGoal').innerHTML=IC[S.goal]+'<span>'+g.h[li]+'</span>';
+  document.getElementById('pLook').textContent=t('prof.look',{x:lk.x[li]});
+  document.getElementById('pChips').innerHTML=S.ints.map(function(k){ return '<span class="bp-chip">'+chipHTML(INTK[k])+'</span>'; }).join('');
+  var HEART='M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2.6 0 4.2 1.7 5.6 3.6C13.4 6.7 15 5 17.6 5 21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z',
+      CHAT='M3 4.5h18v12.5H8l-5 3.5z', GLOBE='M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z',
+      WOMAN='M12 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 10v8m-4-4h8', CHECK='M4 12.5l5 5L20 6.5';
+  var st=[];
+  if(FLOW==='friend'){ st.push(['st.lang',CHAT]); st.push(['st.150',GLOBE]); }
+  else { st.push(['st.70',HEART]); st.push(S.look==='women'||S.look==='both' ? ['st.60',WOMAN] : ['st.ver',CHECK]); }
+  document.getElementById('pStats').innerHTML=st.map(function(s){ return '<div class="bp-stat"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="'+s[1]+'"/></svg><span>'+t(s[0])+'</span></div>'; }).join('');
+
+  document.querySelectorAll('#planList .bp-plan').forEach(function(b){ b.classList.toggle('on', b.dataset.v===S.plan); });
+  var PF = FLOW==='friend' ? [['100+','pf.lang'],['150+','pf.ctry'],['4.6 ★','pf.rev']] : [['4.6 ★','pf.rev'],['35M+','pf.dl'],['90%','pf.ver']];
+  document.getElementById('proof').innerHTML=PF.map(function(x){ return '<div><b>'+x[0]+'</b><span>'+t(x[1])+'</span></div>'; }).join('');
+  var kw=KW[S.kw]; document.getElementById('welH').textContent=kw.h[li]; document.getElementById('welS').textContent=kw.s[li];
+  document.getElementById('soundIc').innerHTML = S.sound
+    ? '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'
+    : '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+}
+
+/* ================= router ================= */
+var ORDER=['welcome','name','dob','look','goal','interests','photo','profile','video','paywall','offer','notify'];
+var LABEL={welcome:'Welcome',name:'Name',dob:'Birthday',look:'Looking for',goal:'Goal',interests:'Interests',photo:'Photo',profile:'Profile preview',video:'Intro video',paywall:'Paywall',offer:'Offer on close',notify:'Notifications'};
+var scr={}, hist=[], cur='welcome', vidTimer=null, autoT=null;
+document.querySelectorAll('.scr').forEach(function(s){ scr[s.dataset.id]=s; });
+
+function chrome(){ var dark=S.theme==='dark', l=dark || !!scr[cur].dataset.light;
+  document.getElementById('sbar').classList.toggle('light',l); document.getElementById('homebar').classList.toggle('light',l); }
+function tell(m){ if(EMBED && window.parent!==window){ m.flow=FLOW; window.parent.postMessage(m,'*'); } }
+function enter(id){ chrome(); tell({ev:'screen',id:id}); clearTimeout(vidTimer); clearTimeout(autoT);
+  if(id==='video'){ var v=scr.video.querySelector('.bp-vid img'); v.style.animation='none'; void v.offsetWidth; v.style.animation='';
+    var vt=scr.video.querySelector('.bp-vt'); vt.style.animation='none'; void vt.offsetWidth; vt.style.animation='';
+    vidTimer=setTimeout(function(){ if(cur==='video') go('paywall'); }, demo.on?2600:6500); }
+  if(id==='dob') requestAnimationFrame(setWheels);
+  if(id==='paywall') document.getElementById('car').scrollLeft=0;
+}
+function autoNext(from,to){ clearTimeout(autoT); autoT=setTimeout(function(){ if(cur===from) go(to); },300); }
+function go(id,opts){
+  opts=opts||{}; if(id===cur) return;
+  var from=scr[cur], to=scr[id];
+  if(!opts.back) hist.push(cur);
+  if(from && !to.classList.contains('sheet')){ from.classList.remove('is-active');
+    if(!to.classList.contains('sheet') && !from.classList.contains('sheet')) from.classList.add('is-past'); }
+  Object.keys(scr).forEach(function(k){ if(k!==id&&k!==cur) scr[k].classList.remove('is-active'); });
+  if(id==='welcome'){ Object.keys(scr).forEach(function(k){ scr[k].classList.remove('is-past'); }); hist=[]; }
+  to.classList.remove('is-past'); to.classList.add('is-active');
+  cur=id; enter(id);
+}
+function jump(id){
+  var i=ORDER.indexOf(id);
+  Object.keys(scr).forEach(function(k){ scr[k].classList.add('nofx'); scr[k].classList.remove('is-active','is-past'); });
+  hist=ORDER.slice(0,i<0?0:i);
+  if(id==='offer') scr.paywall.classList.add('is-active');
+  scr[id].classList.add('is-active'); cur=id;
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    Object.keys(scr).forEach(function(k){ scr[k].classList.remove('nofx'); }); }); });
+  syncScreen(); enter(id);
+}
+/* ================= wiring ================= */
+document.querySelectorAll('[data-go]').forEach(function(b){ b.addEventListener('click',function(){ if(!b.disabled) go(b.dataset.go); }); });
+document.getElementById('nameIn').addEventListener('input',function(e){ S.name=e.target.value; syncScreen(true); });
+document.getElementById('photoBtn').addEventListener('click',function(){ S.photo=!S.photo; syncScreen(true); });
+document.getElementById('soundBtn').addEventListener('click',function(){ S.sound=!S.sound; syncScreen(true); });
+document.getElementById('payClose').addEventListener('click',function(){ go('offer'); });
+document.getElementById('payCta').addEventListener('click',function(){ go('notify'); });
+document.getElementById('offClose').addEventListener('click',function(){ go('notify'); });
+document.getElementById('offerCta').addEventListener('click',function(){ go('notify'); });
+(function(){ var car=document.getElementById('car'), dots=document.querySelectorAll('#carDots i');
+  car.addEventListener('scroll',function(){ var i=Math.round(car.scrollLeft/car.clientWidth); dots.forEach(function(d,n){ d.classList.toggle('on',n===i); }); }); })();
+
+function setSeg(id,attr,val){ document.querySelectorAll('#'+id+' button').forEach(function(b){ b.classList.toggle('on', b.dataset[attr]===val); }); }
+function setLang(l){ S.lang=l; S0.lang=l; applyStatic(); syncScreen(); }
+function setKw(k){ S.kw=k; S.goal=KW[k].goal; buildGoals(); syncScreen(); }
+function setTheme(th){ S.theme=th; S0.theme=th; document.getElementById('phoneIn').classList.toggle('dark',th==='dark'); chrome(); }
+
+/* ================= the 30-second walkthrough ================= */
+var demo={tok:0,on:false,t0:0,iv:null}, finger=document.getElementById('finger'), phoneIn=document.getElementById('phoneIn');
+function W(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+function cap(txt){ if(FLOW==='date') tell({ev:'cap',txt:txt}); }
+async function tap(sel,tok){
+  if(demo.tok!==tok) throw 0;
+  var el=document.querySelector(sel); if(!el) return;
+  var r=el.getBoundingClientRect(), p=phoneIn.getBoundingClientRect();
+  finger.style.left=(r.left-p.left+r.width/2)+'px'; finger.style.top=(r.top-p.top+r.height/2)+'px';
+  finger.classList.add('show'); await W(380); if(demo.tok!==tok) throw 0;
+  finger.classList.add('press'); await W(120); finger.classList.remove('press'); el.click(); await W(160);
+  if(demo.tok!==tok) throw 0;
+}
+async function pause(ms,tok){ await W(ms); if(demo.tok!==tok) throw 0; }
+async function waitFor(id,tok){ for(var i=0;i<80 && cur!==id;i++) await pause(100,tok); }
+function startDemo(){
+  stopDemo(); var tok=++demo.tok; demo.on=true;
+  var keep={lang:S.lang,theme:S.theme}; S=null; S=defaults(); S.lang=keep.lang; S.theme=keep.theme;
+  var fr=FLOW==='friend'; S.ints=fr?['tr.abr','hb.read']:['go.cafe','tr.abr']; S.photo=false; tell({ev:'kw',kw:S.kw});
+  applyStatic(); jump('welcome');
+  (async function(){
+    try{
+      cap('Two searches, two first screens: “international dating” leads with a partner, “make new friends” with friends.'); await pause(2900,tok);
+      await tap('#welGo',tok);
+      cap('Every question kept, in both flows.'); await pause(500,tok);
+      await tap('#nameBtn',tok); await pause(250,tok); await tap('[data-id=dob] .bp-arrow',tok); await pause(300,tok);
+      await tap(fr?'#lookList [data-v=both]':'#lookList [data-v=women]',tok); await waitFor('goal',tok);
+      cap('Each search arrives with its own goal already picked, and on top.'); await pause(1300,tok);
+      await tap(fr?'#goalList [data-v=friends]':'#goalList [data-v=relationship]',tok); await waitFor('interests',tok);
+      await pause(250,tok); await tap(fr?'#intList [data-v="pt.cat"]':'#intList [data-v="pt.dog"]',tok); await pause(200,tok); await tap('#intSave',tok);
+      await pause(300,tok); await tap('#photoBtn',tok); await pause(250,tok); await tap('#photoNext',tok);
+      cap('The profile they built, ending on the figure that fits the search.'); await pause(2300,tok);
+      await tap('[data-id=profile] .bp-btn',tok);
+      cap('Your intro video, unchanged in both.'); await waitFor('paywall',tok);
+      cap('Gold, with the proof that answers each search above all four plans.'); await pause(1700,tok);
+      await tap('#planList [data-v=h]',tok); await pause(600,tok); await tap('#planList [data-v=w]',tok); await pause(300,tok);
+      cap('They close it. One second chance: 6 months, as 1,54 € a week.'); await tap('#payClose',tok); await pause(2600,tok);
+      finger.classList.remove('show'); demo.on=false; tell({ev:'demoEnd'});
+    }catch(e){}
+  })();
+}
+function stopDemo(){ if(!demo.on) return; demo.tok++; demo.on=false; finger.classList.remove('show','press'); }
+phoneIn.addEventListener('pointerdown',function(e){ if(e.isTrusted && demo.on){ stopDemo(); tell({ev:'demoStop'}); } });
+
+if(EMBED){
+  window.addEventListener('message',function(e){ var m=e.data||{}; if(!m.cmd) return;
+    if(m.cmd==='jump'){ stopDemo(); if(m.id!==cur) jump(m.id); }
+    if(m.cmd==='lang') setLang(m.v);
+    if(m.cmd==='theme') setTheme(m.v);
+    if(m.cmd==='kw'){ stopDemo(); setKw(m.v); }
+    if(m.cmd==='demo') startDemo();
+    if(m.cmd==='stop') stopDemo(); });
+}
+applyStatic(); scr.welcome.classList.add('is-active'); syncScreen(); chrome(); tell({ev:'screen',id:cur});
+</script>
+<script>
+/* ================= the host page: two phones, one step bar, one panel ================= */
+if(!EMBED){
+var KWLAB=function(k){ return '“'+KW[k].lab+'”'; };
+var P3 = {
+welcome:{diff:true,t:'The first screen answers the search',
+ date:{hyp:'Leads with “Find your international soulmate”, the line on your own homepage, with 35M+ downloads and your 4.6. <b>You hold 0.4% of “international dating” today, so every install you win there has to count.</b>',out:'CR +15–20%'},
+ friend:{hyp:'Leads with “Meet new people &amp; make friends”, your own App Store subtitle, and chat translated automatically. <b>“make new friends” is the biggest friends search you show up on, at under 1% share.</b>',out:'CR +15–20%'},
+ note:'Pick another search beside each phone: “global dating app”, “international”, “bumble”, “eurodate”, or “foreign”, “interpals”, “tandem”. Each gets its own headline, written only from your listing and bumpy.app.'},
+goal:{diff:true,t:'Same question, a different first answer',
+ date:{hyp:'“Find a relationship” is already picked, <b>because that is what they searched for</b>. Your five goals stay in your order.'},
+ friend:{hyp:'“Chat and meet friends” moves to the top and is already picked, <b>because today someone who searched for a pen pal sees “Get married” first</b>. Pick “tandem” beside the phone and “Learn other cultures” leads instead.'}},
+profile:{diff:true,t:'The card ends on the number that fits',idea:2,
+ date:{hyp:'Under their card: <b>70% of Bumpy users are looking for a serious relationship</b>, and 60% are women when they are looking for women. Both from bumpy.app.',out:'CR +10–15%'},
+ friend:{hyp:'Under their card: <b>chat in 100+ languages, translated automatically, with people from 150+ countries</b>. Both from your App Store listing.',out:'CR +10–15%'}},
+paywall:{diff:true,t:'One paywall, two kinds of proof',idea:4,
+ date:{hyp:'Above the plans: <b>4.6 from 500k+ reviews, 35M+ downloads and 90% photo-verified</b>. Someone looking for a partner wants to know the people are real.',out:'CR +10–15%'},
+ friend:{hyp:'Above the plans: <b>100+ languages, 150+ countries and your 4.6</b>. Someone looking for a pen pal wants to know they can talk to anyone.',out:'CR +10–15%'}}
+};
+var PANEL = {
+name:{ctx:true,t:'What is your name?',kept:'Untouched — your gradient, the thin progress line, the grey field, the safety-tips link and the round arrow button. The name comes back on the profile preview.'},
+dob:{ctx:true,t:'Enter your date of birth',kept:'Your three-column wheel in its white card, rebuilt as a working control. The age it gives is shown on the profile preview.'},
+look:{ctx:true,t:'Who are you looking for?',kept:'All three options in your order, and one tap moves on as it does today. In the dating flow, “women” or “both” adds your 60% women figure to the profile preview.'},
+interests:{ctx:true,t:'Your Interests',kept:'Your sections, emoji pills, Skip and the Save 0/15 counter. Whatever they pick appears on their profile card.'},
+photo:{ctx:true,t:'Add your first photo',kept:'Your photo row and the photo-tips bar. A prototype cannot open a camera roll, so a tap adds a placeholder.'},
+video:{ctx:true,t:'Welcome to Bumpy — your intro video',kept:'Your intro video stays where it is, straight before Gold, in both flows. We worked from a screen recording, not the video file, so this shows its opening frame (the moon, your title and the sound button) with a slow push-in; the real video drops in here unchanged.'},
+offer:{n:5,t:'A second chance on close, on a plan you already sell',
+ hyp:'Try one offer when they tap the X, built on your 6-month plan at 39,99 €, <b>because that is 1,54 € a week against 5,99 €, a real saving from your own price list with no invented discount or timer</b>.',
+ out:'ARPU +10–15%',kept:'Your Gold gradient, icon circles, plan card, yellow SAVE 73% pill, legal line and Continue button.'},
+notify:{n:1,t:'Ask for permissions after the paywall',
+ hyp:'Try moving this prompt, and the tracking prompt before it, to after Gold, <b>because today two permission asks and your video stand between the last question and the price, and each one is a moment to leave</b>.',
+ out:'CR +10–15%',kept:'Your bell art, alert card, Not now / Notify me and the waving hands. Your “Personalize your experience” tracking screen moves with it, unchanged.'}
+};
+var IDEAS5 = [[1,'Ask for permissions after the paywall','CR +10–15%','notify'],[2,'Show them the profile they just built','CR +10–15%','profile'],
+  [3,'Put your own numbers next to the price','CR +10–15%','paywall'],[4,'Let them see all four plans','ARPU +10–15%','paywall'],[5,'A second chance on close, on a plan you already sell','ARPU +10–15%','offer']];
+var LIT = {profile:[2],paywall:[3,4],offer:[5],notify:[1]};
+var FL = ['date','friend'];
+var H = {cur:{date:'welcome',friend:'welcome'}, step:'welcome', ready:{}, demo:false, t0:0, iv:null, lang:'en', one:'date', kw:{date:'intl',friend:'friends'}};
+var KWI = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>';
+function frames(){ return {date:document.querySelector('.flow.date iframe'), friend:document.querySelector('.flow.friend iframe')}; }
+function send(flow,m){ var f=frames()[flow]; if(f&&f.contentWindow) f.contentWindow.postMessage(m,'*'); }
+function sendBoth(m){ send('date',m); send('friend',m); }
+function hostJump(id){ hostStopDemo(true); H.cur.date=H.cur.friend=id; sendBoth({cmd:'jump',id:id}); setStep(id); }
+function setStep(id){ H.step=id; paintSteps(); paintHostPanel(); }
+function paintSteps(){
+  var c=document.getElementById('hSteps');
+  if(!c.childElementCount) ORDER.forEach(function(id){ var b=document.createElement('button'); b.className='step'+(P3[id]?' diff':'')+(id==='offer'?' offer':'');
+    b.textContent=LABEL[id]; b.dataset.id=id; b.title=P3[id]?'The two flows differ on this screen':'Same in both flows';
+    b.onclick=function(){ hostJump(id); }; c.appendChild(b); });
+  c.querySelectorAll('.step').forEach(function(b){ b.classList.toggle('on',b.dataset.id===H.step); });
+}
+function paintKw(){
+  FL.forEach(function(f){
+    document.querySelectorAll('[data-kwq='+f+']').forEach(function(el){ el.textContent=KWLAB(H.kw[f]); });
+    var p=document.querySelector('[data-pick='+f+']');
+    p.innerHTML=KWS[f].map(function(k){ return '<button data-k="'+k+'" class="'+(k===H.kw[f]?'on':'')+'">'+KW[k].lab+'</button>'; }).join('');
+    p.querySelectorAll('button').forEach(function(b){ b.onclick=function(){ pickKw(f,b.dataset.k); }; });
+    var sel=document.querySelector('[data-sel='+f+']');
+    sel.innerHTML=KWS[f].map(function(k){ return '<option value="'+k+'"'+(k===H.kw[f]?' selected':'')+'>“'+KW[k].lab+'”</option>'; }).join('');
+    sel.onchange=function(){ pickKw(f,sel.value); };
+  });
+}
+function pickKw(f,k){ hostStopDemo(); H.kw[f]=k; send(f,{cmd:'kw',v:k}); paintKw(); paintHostPanel(); }
+function kcard(flow,d){
+  var h='<div class="kc '+flow+'"><div class="kk">'+KWI+KWLAB(H.kw[flow])+'</div><p>'+d.hyp+'</p>';
+  if(d.out) h+='<div class="ko"><span>Potential outcome</span><b>'+d.out+'</b></div>';
+  return h+'</div>';
+}
+function outBlock(lab,val){ return '<div class="pn-out"><div class="lab">'+lab+'</div><div class="v">'+val+'</div></div>'; }
+function paintHostPanel(){
+  var id=H.step, d=P3[id], b=PANEL[id]||{}, here=LIT[id]||[], h='';
+  h+='<details class="sh"><summary><div class="top"><span class="lab"><small>Built into both flows</small>The 5 ideas from the audit</span>'
+    +'<span class="more"><span class="o">Show all ▾</span><span class="c">Hide ▴</span></span></div><div class="lit">';
+  IDEAS5.forEach(function(x){ h+='<button class="'+(here.indexOf(x[0])>-1?'on':'')+'" data-go="'+x[3]+'" title="'+x[1]+'">0'+x[0]+'</button>'; });
+  h+='<span>'+(here.length?'Lit = on this screen':'None on this screen')+'</span></div></summary><ol>';
+  IDEAS5.forEach(function(x){ h+='<li class="'+(here.indexOf(x[0])>-1?'on':'')+'" data-go="'+x[3]+'"><span class="n">0'+x[0]+'</span><span class="t">'+x[1]+'</span><span class="o">'+x[2]+'</span></li>'; });
+  h+='</ol></details>';
+  if(d){
+    h+='<div class="pn-badge"><i></i>'+LABEL[id]+' · differs by keyword</div><h3 class="pn-t">'+d.t+'</h3>';
+    h+=kcard('date',d.date)+kcard('friend',d.friend);
+    if(d.note) h+='<div class="pn-note">'+d.note+'</div>';
+    if(d.idea){ var x=IDEAS5[d.idea-1]; h+='<div class="pn-also"><div class="lab">'+(id==='paywall'?'Also on this screen, in both flows':'The idea behind this screen')+'</div>'
+      +'<div class="row"><span>Idea '+d.idea+' · '+x[1]+'</span><span class="o">'+x[2]+'</span></div></div>'; }
+  } else if(b.ctx){
+    h+='<div class="pn-badge same"><i></i>'+LABEL[id]+' · same in both flows</div>';
+    h+='<div class="pn-n ctx" style="margin-top:14px">Context · no change proposed</div><h3 class="pn-t">'+b.t+'</h3><div class="pn-kept">'+b.kept+'</div>';
+  } else {
+    h+='<div class="pn-badge same"><i></i>'+LABEL[id]+' · same in both flows</div>';
+    h+='<div class="pn-n" style="margin-top:14px">Idea '+b.n+' of 5</div><h3 class="pn-t">'+b.t+'</h3><p class="pn-hyp">'+b.hyp+'</p>'
+      +outBlock('Potential outcome · based on Adapty data',b.out);
+    h+='<div class="pn-kept"><b>Your design, unchanged.</b> '+b.kept+'</div>';
+  }
+  h+='<div class="pn-kept"><b>Prices.</b> As shown on your Gold paywall: 5,99 € a week, 9,99 € a month, 24,99 € for 3 months, 39,99 € for 6 months. The keyword data is US.</div>';
+  if(H.lang!=='en') h+='<div class="pn-kept"><b>Language.</b> Screens are shown in '+(H.lang==='es'?'Spanish':'Portuguese (Brazil)')+', which your site lists right after English, to show both flows serving every market. Translated by us; store prices stay as shown on your paywall and the intro video title stays as filmed.</div>';
+  h+='<div class="pn-foot">Ranges are Adapty’s expected effect from tests across 30,000+ subscription apps, not measured lift for Bumpy. Prices, ratings and figures come from your own published material.</div>';
+  var p=document.getElementById('hPanel'); var wasOpen=p.querySelector('details.sh[open]'); p.innerHTML=h;
+  if(wasOpen) p.querySelector('details.sh').open=true;
+  p.querySelectorAll('.sh [data-go]').forEach(function(el){ el.onclick=function(e){ e.preventDefault(); e.stopPropagation(); hostJump(el.dataset.go); }; });
+}
+function hostSeg(attr,v){ document.querySelectorAll('[data-h'+attr+']').forEach(function(b){ b.classList.toggle('on',b.getAttribute('data-h'+attr)===v); }); }
+document.querySelectorAll('[data-hlang]').forEach(function(b){ b.addEventListener('click',function(){ H.lang=b.dataset.hlang; hostSeg('lang',H.lang); sendBoth({cmd:'lang',v:H.lang}); paintHostPanel(); }); });
+document.querySelectorAll('[data-htheme]').forEach(function(b){ b.addEventListener('click',function(){ hostSeg('theme',b.dataset.htheme); sendBoth({cmd:'theme',v:b.dataset.htheme}); }); });
+function hostDemo(){
+  if(!(H.ready.date&&H.ready.friend)){ setTimeout(hostDemo,150); return; }
+  hostStopDemo(true); H.demo=true; H.t0=Date.now(); H.kw={date:'intl',friend:'friends'}; paintKw(); setStep('welcome');
+  document.getElementById('hSteps').classList.add('hidden'); document.getElementById('hCap').classList.remove('hidden');
+  document.getElementById('hCapT').textContent='';
+  H.iv=setInterval(function(){ document.getElementById('hProg').style.width=Math.min(100,(Date.now()-H.t0)/254)+'%'; },200);
+  sendBoth({cmd:'demo'});
+}
+function hostStopDemo(quiet){
+  if(!H.demo) return; H.demo=false; clearInterval(H.iv);
+  document.getElementById('hSteps').classList.remove('hidden'); document.getElementById('hCap').classList.add('hidden');
+  if(!quiet) sendBoth({cmd:'stop'});
+}
+document.getElementById('hStop').addEventListener('click',function(){ hostStopDemo(); });
+document.querySelectorAll('[data-hdemo]').forEach(function(b){ b.addEventListener('click',hostDemo); });
+window.addEventListener('message',function(e){
+  var m=e.data||{}; if(!m.ev||!m.flow) return;
+  var other=m.flow==='date'?'friend':'date';
+  if(m.ev==='screen'){ var was=H.ready.date&&H.ready.friend; H.ready[m.flow]=true; H.cur[m.flow]=m.id;
+    if(!was&&H.ready.date&&H.ready.friend){ fit(); var sp=(location.search.match(/[?&]step=(\w+)/)||[])[1]; if(sp&&ORDER.indexOf(sp)>-1){ hostJump(sp); return; } }
+    if(!H.demo && H.cur[other]!==m.id){ H.cur[other]=m.id; send(other,{cmd:'jump',id:m.id}); }
+    if(m.id!==H.step) setStep(m.id); }
+  if(m.ev==='kw'){ H.kw[m.flow]=m.kw; paintKw(); }
+  if(m.ev==='cap') document.getElementById('hCapT').textContent=m.txt;
+  if(m.ev==='demoEnd') hostStopDemo(true);
+  if(m.ev==='demoStop') hostStopDemo();
+});
+document.querySelectorAll('#mtog button').forEach(function(b){ b.addEventListener('click',function(){
+  H.one=b.dataset.one; document.querySelectorAll('#mtog button').forEach(function(x){ x.classList.toggle('on',x===b); });
+  document.querySelectorAll('.duo .flow').forEach(function(f){ f.classList.toggle('show',f.dataset.flow===H.one); }); fit(); }); });
+document.getElementById('drawerBtn').addEventListener('click',function(){ document.body.classList.toggle('drawer'); });
+function fit(){
+  var p3=document.getElementById('p3'), st=document.getElementById('p3Stage'), duo=document.getElementById('duo');
+  if(!document.getElementById('view-proto').classList.contains('on')) return;
+  var W=st.clientWidth-40, mobile=matchMedia("(max-width:759px)").matches, s;
+  if(mobile){ p3.className='p3 top one'; s=Math.min(1,(W+16)/390); }
+  else {
+    var Hs=duo.clientHeight-4;
+    var sSide=Math.min(1,Hs/844,(W-2*196-3*22)/(2*390));
+    var sTop=Math.min(1,(Hs-42)/844,(W-22)/(2*390));
+    var side=sSide>=sTop-0.01; p3.className='p3 '+(side?'side':'top'); s=side?sSide:sTop;
+  }
+  s=Math.max(.42,s);
+  document.querySelectorAll('.pbox').forEach(function(p){ p.style.width=Math.round(390*s)+'px'; p.style.height=Math.round(844*s)+'px';
+    p.firstElementChild.style.transform='scale('+s+')'; });
+}
+addEventListener('resize',fit); addEventListener('load',fit);
+
+function showView(v){
+  if(v!=='proto'){ hostStopDemo(); document.body.classList.remove('drawer'); }
+  document.body.classList.toggle('proto',v==='proto');
+  document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('on'); });
+  document.getElementById('view-'+v).classList.add('on');
+  document.querySelectorAll('.nav-links button[data-view]').forEach(function(b){ b.classList.toggle('on', b.dataset.view===v); });
+  window.scrollTo(0,0);
+  if(v==='proto') requestAnimationFrame(fit);
+}
+document.querySelectorAll('[data-view]').forEach(function(b){ b.addEventListener('click',function(){ showView(b.dataset.view); }); });
+document.querySelectorAll('.idea[data-jump],[data-kwjump]').forEach(function(b){
+  b.addEventListener('click',function(){ showView('proto'); hostJump(b.dataset.jump||b.dataset.kwjump); }); });
+document.querySelectorAll('[data-demo]').forEach(function(b){ b.addEventListener('click',function(){ showView('proto'); hostDemo(); }); });
+document.querySelectorAll('[data-scroll]').forEach(function(b){ b.addEventListener('click',function(){ document.getElementById(b.dataset.scroll).scrollIntoView({behavior:'smooth'}); }); });
+
+paintSteps(); paintKw(); paintHostPanel();
+if(/[?&]open=proto/.test(location.search)) showView('proto');
+}
+</script>
+</body>
+</html>
